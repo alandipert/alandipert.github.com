@@ -1,0 +1,3356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Computing with Clojure</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Computing with Clojure"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2012-07-17 18:56:16 EDT"/>
+<meta name="author" content="Alan Dipert"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="slide-assets/goog-common.css" />
+<link rel="stylesheet" type="text/css" href="slide-assets/common.css" />
+<link rel="stylesheet" type="text/css" href="slide-assets/screen.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="slide-assets/projection.css" media="projection" />
+<link rel="stylesheet" type="text/css" href="slide-assets/presenter.css" media="presenter" />
+<link rel="stylesheet" type="text/css" href="slide-assets/print.css" media="print" />
+
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Computing with Clojure</h1>
+
+
+<p>Press <strong>T</strong> to toggle slide-show mode.</p>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Computing with Clojure</a></li>
+<li><a href="#sec-2">2 Welcome</a></li>
+<li><a href="#sec-3">3 Tutorial</a>
+<ul>
+<li><a href="#sec-3-1">3.1 Clojure Overview &amp; REPL</a></li>
+<li><a href="#sec-3-2">3.2 Functions</a></li>
+<li><a href="#sec-3-3">3.3 Names and Namespaces</a></li>
+<li><a href="#sec-3-4">3.4 Working with Java</a></li>
+<li><a href="#sec-3-5">3.5 Collections</a></li>
+<li><a href="#sec-3-6">3.6 Flow Control</a></li>
+<li><a href="#sec-3-7">3.7 HACK LIFE</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 End</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Computing with Clojure &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-1">
+
+
+
+
+<img id="clojure-logo" src="slide-assets/Clojure.svg" alt="slide-assets/clojure-glyph.svg" width="300" height="300" />
+<p class="presenters">
+Alan Dipert & Clinton Dreisbach<br />
+Relevance, Inc.<br />
+thinkrelevance.com
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Welcome</h2>
+<div class="outline-text-2" id="text-2">
+
+
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-5">
+<h5 id="sec-2-1"><span class="section-number-5">2.1</span> Welcome &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-2-1">
+
+<ul>
+<li id="sec-2-1-1">Schedule<br/>
+<ul>
+<li id="sec-2-1-1-1">0900-1030 Introduction to Clojure - REPL, functions, Java + exercises<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-2-1-1-2">1030-1100 Break<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-2-1-1-3">1100-1230 Namespaces, Collections, Flow Control<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-2-1-1-4">We are making this up. Who knows? There will be a break.<br/>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-2-1-2">Play Along<br/>
+<ul>
+<li id="sec-2-1-2-1">We have thumb drives with Clooj, JDK, slides, and example code.<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-2-1-2-2">You can get slides and example code from <a href="https://github.com/alandipert/oscon2012-clojure">https://github.com/alandipert/oscon2012-clojure</a><br/>
+
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Tutorial</h2>
+<div class="outline-text-2" id="text-3">
+
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Clojure Overview &amp; REPL &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-3-1">
+
+
+
+
+</div>
+
+<div id="outline-container-3-1-1" class="outline-4">
+<h4 id="sec-3-1-1"><span class="section-number-4">3.1.1</span> Clojure Rationale</h4>
+<div class="outline-text-4" id="text-3-1-1">
+
+
+</div>
+
+<div id="outline-container-3-1-1-1" class="outline-5">
+<h5 id="sec-3-1-1-1"><span class="section-number-5">3.1.1.1</span> Clojure Objectives &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-1-1">
+
+<ul>
+<li id="sec-3-1-1-1-1">Lisp: small core, code-as-data, abstraction<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-1-1-1-2">Functional, emphasis on immutability<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-1-1-1-3">Support concurrency &amp; managed state<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-1-1-1-4">Expose and embrace host platforms<br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-1-1-2" class="outline-5">
+<h5 id="sec-3-1-1-2"><span class="section-number-5">3.1.1.2</span> Why Another Lisp? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-1-2">
+
+<ul>
+<li id="sec-3-1-1-2-1">Limits to change post standardization<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-1-1-2-2">Core data structures mutable, not extensible<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-1-1-2-3">No concurrency in specs<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-1-1-2-4">Standard Lisps are their own platforms<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-1-1-2-5">Good implementations already exist for JVM<br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-1-1-3" class="outline-5">
+<h5 id="sec-3-1-1-3"><span class="section-number-5">3.1.1.3</span> Why the JVM? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-1-3">
+
+<ul>
+<li id="sec-3-1-1-3-1">VM, not OS, is target platform of the future<br/>
+<ul>
+<li id="sec-3-1-1-3-1-1">Type system<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-1-1-3-1-2">Dynamic enforcement and safety<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-1-1-3-1-3">Garbage collection<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-1-1-3-1-4">Libraries<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-1-1-3-1-5">Bytecode, just-in-time compilation<br/>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-1-2" class="outline-4">
+<h4 id="sec-3-1-2"><span class="section-number-4">3.1.2</span> Evaluation and the REPL</h4>
+<div class="outline-text-4" id="text-3-1-2">
+
+
+</div>
+
+<div id="outline-container-3-1-2-1" class="outline-5">
+<h5 id="sec-3-1-2-1"><span class="section-number-5">3.1.2.1</span> The REPL &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-2-1">
+
+
+
+
+<pre class="src src-clojure">user=&gt; (<span class="org-variable-name">+</span> 3 4)  <span class="org-comment-delimiter">; </span><span class="org-comment">Read</span>
+                <span class="org-comment-delimiter">; </span><span class="org-comment">Eval</span>
+7               <span class="org-comment-delimiter">; </span><span class="org-comment">Print</span>
+user=&gt;          <span class="org-comment-delimiter">; </span><span class="org-comment">Loop</span>
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-1-2-2" class="outline-5">
+<h5 id="sec-3-1-2-2"><span class="section-number-5">3.1.2.2</span> Traditional Evaluation &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-2-2">
+
+<p><img src="slide-assets/traditional-evaluation.svg"  alt="slide-assets/traditional-evaluation.svg" />
+</p></div>
+
+</div>
+
+<div id="outline-container-3-1-2-3" class="outline-5">
+<h5 id="sec-3-1-2-3"><span class="section-number-5">3.1.2.3</span> Clojure Evaluation &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-2-3">
+
+<p><img src="slide-assets/clojure-interactive-evaluation.svg"  alt="slide-assets/clojure-interactive-evaluation.svg" />
+</p></div>
+</div>
+
+</div>
+
+<div id="outline-container-3-1-3" class="outline-4">
+<h4 id="sec-3-1-3"><span class="section-number-4">3.1.3</span> Basic Syntax</h4>
+<div class="outline-text-4" id="text-3-1-3">
+
+
+</div>
+
+<div id="outline-container-3-1-3-1" class="outline-5">
+<h5 id="sec-3-1-3-1"><span class="section-number-5">3.1.3.1</span> Operation Forms &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-3-1">
+
+
+
+
+<pre class="src src-clojure">(op ... )
+</pre>
+
+<ul>
+<li id="sec-3-1-3-1-1">op can be either:<br/>
+<ul>
+<li id="sec-3-1-3-1-1-1">special operator or macro<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-1-3-1-1-2">expression which yields a function<br/>
+<ul>
+<li id="sec-3-1-3-1-1-2-1">more generally, something invocable<br/>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-1-3-2" class="outline-5">
+<h5 id="sec-3-1-3-2"><span class="section-number-5">3.1.3.2</span> Structure vs. Semantics &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-3-2">
+
+<p><img src="slide-assets/structure-and-semantics.svg"  alt="slide-assets/structure-and-semantics.svg" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-1-3-3" class="outline-5">
+<h5 id="sec-3-1-3-3"><span class="section-number-5">3.1.3.3</span> Literals (1) &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-3-3">
+
+
+
+
+<pre class="src src-clojure">42           <span class="org-comment-delimiter">; </span><span class="org-comment">Long</span>
+6.022e23     <span class="org-comment-delimiter">; </span><span class="org-comment">Double</span>
+
+42N          <span class="org-comment-delimiter">; </span><span class="org-comment">BigInt</span>
+1.0M         <span class="org-comment-delimiter">; </span><span class="org-comment">BigDecimal</span>
+22/7         <span class="org-comment-delimiter">; </span><span class="org-comment">Ratio</span>
+
+<span class="org-string">"hello"</span>      <span class="org-comment-delimiter">; </span><span class="org-comment">String</span>
+\e           <span class="org-comment-delimiter">; </span><span class="org-comment">Character</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-1-3-4" class="outline-5">
+<h5 id="sec-3-1-3-4"><span class="section-number-5">3.1.3.4</span> Literals (2) &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-3-4">
+
+
+
+
+<pre class="src src-clojure">true  false        <span class="org-comment-delimiter">; </span><span class="org-comment">Booleans</span>
+
+nil                <span class="org-comment-delimiter">; </span><span class="org-comment">null</span>
+
++  <span class="org-preprocessor">Fred</span>  *bob*     <span class="org-comment-delimiter">; </span><span class="org-comment">Symbols</span>
+
+<span class="org-constant">:alpha</span>  <span class="org-constant">:beta</span>      <span class="org-comment-delimiter">; </span><span class="org-comment">Keywords</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-1-3-5" class="outline-5">
+<h5 id="sec-3-1-3-5"><span class="section-number-5">3.1.3.5</span> Data Structures &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-3-5">
+
+
+
+
+<pre class="src src-clojure">(4 <span class="org-constant">:alpha</span> 3.0)     <span class="org-comment-delimiter">; </span><span class="org-comment">List</span>
+
+[2 <span class="org-string">"hello"</span> 99]     <span class="org-comment-delimiter">; </span><span class="org-comment">Vector</span>
+
+{<span class="org-constant">:a</span> 1, <span class="org-constant">:b</span> 2}       <span class="org-comment-delimiter">; </span><span class="org-comment">Map</span>
+
+#{alice jim bob}   <span class="org-comment-delimiter">; </span><span class="org-comment">Set</span>
+</pre>
+
+
+<ul>
+<li id="sec-3-1-3-5-1">Note: commas are whitespace<br/>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-1-3-6" class="outline-5">
+<h5 id="sec-3-1-3-6"><span class="section-number-5">3.1.3.6</span> Reader Macros &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-3-6">
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">Reader Macro</th><th scope="col" class="left">Expansion</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">'foo</td><td class="left">(quote foo)</td></tr>
+<tr><td class="left">#'foo</td><td class="left">(var foo)</td></tr>
+<tr><td class="left">@foo</td><td class="left">(deref foo)</td></tr>
+<tr><td class="left">#(+ % 5)</td><td class="left">(fn [x] (+ x 5))</td></tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-1-4" class="outline-4">
+<h4 id="sec-3-1-4"><span class="section-number-4">3.1.4</span> Discoverability of the Environment</h4>
+<div class="outline-text-4" id="text-3-1-4">
+
+
+</div>
+
+<div id="outline-container-3-1-4-1" class="outline-5">
+<h5 id="sec-3-1-4-1"><span class="section-number-5">3.1.4.1</span> doc &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-4-1">
+
+
+
+
+<pre class="src src-clojure">user=&gt; (<span class="org-variable-name">use</span> 'clojure.repl)
+
+user=&gt; (<span class="org-variable-name">doc</span> when)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">-------------------------</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">clojure.core/when</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">([test &amp; body])</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Macro</span>
+<span class="org-comment-delimiter">;;   </span><span class="org-comment">Evaluates test. If logical true, evaluates</span>
+<span class="org-comment-delimiter">;;   </span><span class="org-comment">body in an implicit do.</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; nil</span>
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-1-4-2" class="outline-5">
+<h5 id="sec-3-1-4-2"><span class="section-number-5">3.1.4.2</span> find-doc &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-4-2">
+
+
+
+
+<pre class="src src-clojure">user=&gt; (<span class="org-variable-name">find-doc</span> <span class="org-string">"sequence"</span>)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">... all definitions with "sequence"</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">in their documentation ...</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; nil</span>
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-1-4-3" class="outline-5">
+<h5 id="sec-3-1-4-3"><span class="section-number-5">3.1.4.3</span> apropos &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-4-3">
+
+
+
+
+<pre class="src src-clojure">user=&gt; (apropos <span class="org-string">"map"</span>)
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; (sorted-map ns-unmap zipmap map mapcat</span>
+<span class="org-comment-delimiter">;;  </span><span class="org-comment">sorted-map-by map? amap struct-map</span>
+<span class="org-comment-delimiter">;;  </span><span class="org-comment">proxy-mappings pmap map-indexed</span>
+<span class="org-comment-delimiter">;;  </span><span class="org-comment">ns-map array-map hash-map)</span>
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-1-4-4" class="outline-5">
+<h5 id="sec-3-1-4-4"><span class="section-number-5">3.1.4.4</span> source &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-4-4">
+
+
+
+
+<pre class="src src-clojure">user=&gt; (source take)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">(defn take</span>
+<span class="org-comment-delimiter">;;   </span><span class="org-comment">"Returns a lazy sequence of the first n items</span>
+<span class="org-comment-delimiter">;;   </span><span class="org-comment">in coll, or all items if there are fewer than n."</span>
+<span class="org-comment-delimiter">;;   </span><span class="org-comment">{:added "1.0"</span>
+<span class="org-comment-delimiter">;;    </span><span class="org-comment">:static true}</span>
+<span class="org-comment-delimiter">;;   </span><span class="org-comment">[n coll]</span>
+<span class="org-comment-delimiter">;;   </span><span class="org-comment">(lazy-seq</span>
+<span class="org-comment-delimiter">;;    </span><span class="org-comment">(when (pos? n)</span>
+<span class="org-comment-delimiter">;;      </span><span class="org-comment">(when-let [s (seq coll)]</span>
+<span class="org-comment-delimiter">;;       </span><span class="org-comment">(cons (first s) (take (dec n) (rest s)))))))</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; nil</span>
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-1-4-5" class="outline-5">
+<h5 id="sec-3-1-4-5"><span class="section-number-5">3.1.4.5</span> dir &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-4-5">
+
+
+
+
+<pre class="src src-clojure">user=&gt; (dir clojure.repl)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">apropos</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">demunge</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">dir</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">dir-fn</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">doc</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">find-doc</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">pst</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">root-cause</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">set-break-handler!</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">source</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">source-fn</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">stack-element-str</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">thread-stopper</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; nil</span>
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-1-5" class="outline-4">
+<h4 id="sec-3-1-5"><span class="section-number-4">3.1.5</span> Exercises</h4>
+<div class="outline-text-4" id="text-3-1-5">
+
+
+</div>
+
+<div id="outline-container-3-1-5-1" class="outline-5">
+<h5 id="sec-3-1-5-1"><span class="section-number-5">3.1.5.1</span> Exercise: Basic Math &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-5-1">
+
+<ul>
+<li id="sec-3-1-5-1-1">Find the product of 314 and 159 using the REPL.<br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-1-5-2" class="outline-5">
+<h5 id="sec-3-1-5-2"><span class="section-number-5">3.1.5.2</span> Exercise: Basic Math Solution &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-5-2">
+
+<ul>
+<li id="sec-3-1-5-2-1">Find the product of 314 and 159 using the REPL.<br/>
+
+
+
+<pre class="src src-clojure">user=&gt; (<span class="org-variable-name">*</span> 314 159)
+<span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; 49926</span>
+</pre>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-1-5-3" class="outline-5">
+<h5 id="sec-3-1-5-3"><span class="section-number-5">3.1.5.3</span> Exercise: Prefix Notation &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-5-3">
+
+<ul>
+<li id="sec-3-1-5-3-1">Transform the following expression into Clojure code: (42 + 17 * 9) / 12<br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-1-5-4" class="outline-5">
+<h5 id="sec-3-1-5-4"><span class="section-number-5">3.1.5.4</span> Exercise: Prefix Notation Solution &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-1-5-4">
+
+<ul>
+<li id="sec-3-1-5-4-1">Transform the following expression into Clojure code: (42 + 17 * 9) / 12<br/>
+
+
+
+
+<pre class="src src-clojure">user=&gt; (<span class="org-variable-name">/</span> (<span class="org-variable-name">*</span> (<span class="org-variable-name">+</span> 42 17) 9) 12)
+<span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; 177/4</span>
+</pre>
+
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Functions &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-3-2">
+
+
+
+
+</div>
+
+<div id="outline-container-3-2-1" class="outline-4">
+<h4 id="sec-3-2-1"><span class="section-number-4">3.2.1</span> Motivation &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-3-2-1">
+
+<ul>
+<li>Clojure is a functional language
+</li>
+<li>Functions are a first-class abstraction
+</li>
+<li>Ubiquitous support for high-order functions
+</li>
+<li>Core code (almost) entirely pure functions
+<ul>
+<li>i.e., no side-effects
+</li>
+</ul>
+
+</li>
+<li>The obvious place to start&hellip;
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2-2" class="outline-4">
+<h4 id="sec-3-2-2"><span class="section-number-4">3.2.2</span> Functions &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-3-2-2">
+
+
+<ul>
+<li>Functions are first-class abstractions in Clojure
+<ul>
+<li>Can be stored, passed as argument, invoked
+</li>
+</ul>
+
+</li>
+<li><code>fn</code> creates a function with named parameters and body
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure"><span class="org-comment-delimiter">;;      </span><span class="org-comment">params         body</span>
+<span class="org-comment-delimiter">;;     </span><span class="org-comment">---------  ---------------</span>
+  (<span class="org-variable-name">fn</span>  [message]  (<span class="org-variable-name">print</span> message) )
+
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; #&lt;user$eval484$fn__485@45d1c3cd&gt;</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2-3" class="outline-4">
+<h4 id="sec-3-2-3"><span class="section-number-4">3.2.3</span> Invoking Functions &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-3-2-3">
+
+
+<ul>
+<li><code>(op ...)</code>
+</li>
+<li>Invoke a function with <code>fn</code> itself in function position
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(  (<span class="org-variable-name">fn</span> [message] (<span class="org-variable-name">print</span> message))  <span class="org-comment-delimiter">; </span><span class="org-comment">Operation</span>
+   <span class="org-string">"Hello world!"</span>                  <span class="org-comment-delimiter">; </span><span class="org-comment">Arguments</span>
+)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Hello world!</span>
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-3-2-3-1" class="outline-5">
+<h5 id="sec-3-2-3-1"><span class="section-number-5">3.2.3.1</span> Instructor notes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notes">notes</span></span></h5>
+<div class="outline-text-5" id="text-3-2-3-1">
+
+
+<ul>
+<li>The extra whitespace helps show the structure
+</li>
+<li>Normally we would not use so much whitespace
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-2-4" class="outline-4">
+<h4 id="sec-3-2-4"><span class="section-number-4">3.2.4</span> Naming functions &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-3-2-4">
+
+
+<ul>
+<li><code>fn</code> makes <i>anonymous</i> functions
+</li>
+<li>Store function in a named <i>Var</i> for later use
+</li>
+<li>Invoke as list with name in function position
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">def</span> <span class="org-function-name">messenger</span> (<span class="org-variable-name">fn</span> [msg] (<span class="org-variable-name">print</span> msg)))
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; #'user/messenger</span>
+
+(<span class="org-keyword">defn</span> <span class="org-function-name">messenger</span> [msg] (<span class="org-variable-name">print</span> msg))
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; #'user/messenger</span>
+
+(messenger <span class="org-string">"Hello world!"</span>)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Hello world!</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2-5" class="outline-4">
+<h4 id="sec-3-2-5"><span class="section-number-4">3.2.5</span> <code>let</code> &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-3-2-5">
+
+
+<ul>
+<li><code>let</code> binds <i>symbols</i> to immutable <i>values</i>
+<ul>
+<li>Values may be literals or expressions
+</li>
+</ul>
+
+</li>
+<li>Bound symbols are available in <i>lexical scope</i>
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">messenger</span> [msg]
+  (<span class="org-builtin">let</span> [a 7
+        b 5
+        c (capitalize msg)]
+    (<span class="org-variable-name">println</span> a b c)
+  )  <span class="org-comment-delimiter">; </span><span class="org-comment">end of 'let' scope</span>
+)  <span class="org-comment-delimiter">; </span><span class="org-comment">end of function</span>
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-3-2-5-1" class="outline-5">
+<h5 id="sec-3-2-5-1"><span class="section-number-5">3.2.5.1</span> Notes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notes">notes</span></span></h5>
+<div class="outline-text-5" id="text-3-2-5-1">
+
+
+<ul>
+<li>Again, extra whitespace to show structure
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-2-6" class="outline-4">
+<h4 id="sec-3-2-6"><span class="section-number-4">3.2.6</span> Multi-arity functions &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-3-2-6">
+
+
+<ul>
+<li>Can overload function by <b>arity</b> (number of arguments)
+</li>
+<li>Each arity is a list <code>([args*] body*)</code>
+</li>
+<li>One form can invoke another
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">messenger</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">no args, call self with default msg</span>
+  ([] (messenger <span class="org-string">"Hello world!"</span>))
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">one arg, print it</span>
+  ([msg] (<span class="org-variable-name">print</span> msg)))
+
+(messenger)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Hello world!</span>
+(messenger <span class="org-string">"Hello class!"</span>)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Hello class!</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2-7" class="outline-4">
+<h4 id="sec-3-2-7"><span class="section-number-4">3.2.7</span> Variadic functions &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-3-2-7">
+
+
+<ul>
+<li><b>Variadic:</b> function of indefinite arity
+<ul>
+<li>Only one allowed when overloading on arity
+</li>
+</ul>
+
+</li>
+<li><code>&amp;</code> symbol in params 
+<ul>
+<li>Next param collects all remaining args
+</li>
+<li>Collected args represented as sequence
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">messenger</span> [greeting &amp; who]
+  (<span class="org-variable-name">print</span> greeting who))
+
+(messenger <span class="org-string">"Hello"</span> <span class="org-string">"world"</span> <span class="org-string">"class"</span>)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Hello (world class)</span>
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-3-2-7-1" class="outline-5">
+<h5 id="sec-3-2-7-1"><span class="section-number-5">3.2.7.1</span> Notes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notes">notes</span></span></h5>
+<div class="outline-text-5" id="text-3-2-7-1">
+
+
+<ul>
+<li>Sequences look and behave like lists
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-2-8" class="outline-4">
+<h4 id="sec-3-2-8"><span class="section-number-4">3.2.8</span> <code>apply</code> &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-3-2-8">
+
+
+<ul>
+<li>Invokes function on arguments
+</li>
+<li>Final argument is a sequence
+</li>
+<li>"Unpacks" remaining arguments from a sequence
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-builtin">let</span> [a 1
+      b 2
+      more '(3 4)]
+  (<span class="org-variable-name">apply</span> f a b more))
+<span class="org-comment-delimiter">;; </span><span class="org-comment">this invokes (f 1 2 3 4)</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2-9" class="outline-4">
+<h4 id="sec-3-2-9"><span class="section-number-4">3.2.9</span> <code>apply</code> &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-3-2-9">
+
+
+
+
+
+<pre class="src src-clojure"><span class="org-comment-delimiter">;; </span><span class="org-comment">&amp; puts rest of args into sequence</span>
+(<span class="org-keyword">defn</span> <span class="org-function-name">messenger</span> [greeting &amp; who]
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">apply gets args out of sequence</span>
+  (<span class="org-variable-name">apply</span> print greeting who))
+
+(messenger <span class="org-string">"Hello"</span> <span class="org-string">"world"</span> <span class="org-string">"class"</span>)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Hello world class</span>
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-3-2-9-1" class="outline-5">
+<h5 id="sec-3-2-9-1"><span class="section-number-5">3.2.9.1</span> Notes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notes">notes</span></span></h5>
+<div class="outline-text-5" id="text-3-2-9-1">
+
+
+<ul>
+<li>Similar to <code>*splat</code> in Ruby
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-2-10" class="outline-4">
+<h4 id="sec-3-2-10"><span class="section-number-4">3.2.10</span> Closures &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-3-2-10">
+
+
+<ul>
+<li><code>fn</code> "closes" over surrounding lexical scope
+<ul>
+<li>Creates a <i>closure</i>
+</li>
+</ul>
+
+</li>
+<li>Closed-over references persist beyond lexical scope
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">messenger-builder</span> [greeting]
+  (<span class="org-variable-name">fn</span> [who] (<span class="org-variable-name">print</span> greeting who))) <span class="org-comment-delimiter">; </span><span class="org-comment">closes over greeting</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">greeting provided here, then goes out of scope</span>
+(<span class="org-keyword">def</span> <span class="org-function-name">hello-er</span> (messenger-builder <span class="org-string">"Hello"</span>))
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">greeting still available because hello-er is closure</span>
+(hello-er <span class="org-string">"world!"</span>)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Hello world!</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2-11" class="outline-4">
+<h4 id="sec-3-2-11"><span class="section-number-4">3.2.11</span> Function literals &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-3-2-11">
+
+
+<ul>
+<li>Terse form <code>#()</code> for short fns defined inline
+<ul>
+<li>Single argument: <code>%</code>
+</li>
+<li>Multiple args: <code>%1</code>, <code>%2</code>, <code>%3</code>, &hellip;
+</li>
+<li>Variadic: <code>%&amp;</code> for remaining args
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure"><span class="org-comment-delimiter">;; </span><span class="org-comment">A function to square numbers</span>
+(<span class="org-keyword">def</span> <span class="org-function-name">square</span> #(<span class="org-variable-name">*</span> % %))
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">A function to get the sum of squares</span>
+(<span class="org-keyword">def</span> <span class="org-function-name">sum-of-squares</span> #(<span class="org-variable-name">+</span> (square %1) (square %2)))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2-12" class="outline-4">
+<h4 id="sec-3-2-12"><span class="section-number-4">3.2.12</span> Exercise: Greeting &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-3-2-12">
+
+<ul>
+<li>Make a function that takes a greeting and one to three number of people and greets them appropriately. Here's some example output.
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(messenger <span class="org-string">"Hello"</span> <span class="org-string">"Clinton"</span>)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Hello, Clinton!</span>
+
+(messenger <span class="org-string">"Hello"</span> <span class="org-string">"Clinton"</span> <span class="org-string">"Alan"</span>)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Hello, Clinton and Alan!</span>
+
+(messenger <span class="org-string">"Hello"</span> <span class="org-string">"Clinton"</span> <span class="org-string">"Alan"</span> <span class="org-string">"all of you"</span>)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Hello, Clinton, Alan, and all of you!</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2-13" class="outline-4">
+<h4 id="sec-3-2-13"><span class="section-number-4">3.2.13</span> <code>str</code> will be necessary to make this work.</h4>
+<div class="outline-text-4" id="text-3-2-13">
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2-14" class="outline-4">
+<h4 id="sec-3-2-14"><span class="section-number-4">3.2.14</span> Exercise: Greeting Solution &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-3-2-14">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">messenger</span>
+  ([greeting who] (<span class="org-variable-name">str</span> greeting <span class="org-string">", "</span> who <span class="org-string">"!"</span>))
+  ([greeting who1 who2] (<span class="org-variable-name">str</span> greeting <span class="org-string">", "</span> who1 <span class="org-string">" and "</span> who2 <span class="org-string">"!"</span>))
+  ([greeting who1 who2 who3]
+     (<span class="org-variable-name">str</span> greeting <span class="org-string">", "</span> who1 <span class="org-string">", "</span> who2 <span class="org-string">", and "</span> who3 <span class="org-string">"!"</span>)))
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> Names and Namespaces &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-3-3">
+
+
+
+
+</div>
+
+<div id="outline-container-3-3-1" class="outline-4">
+<h4 id="sec-3-3-1"><span class="section-number-4">3.3.1</span> Namespace Concepts</h4>
+<div class="outline-text-4" id="text-3-3-1">
+
+
+</div>
+
+<div id="outline-container-3-3-1-1" class="outline-5">
+<h5 id="sec-3-3-1-1"><span class="section-number-5">3.3.1.1</span> Why Namespaces? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-3-1-1">
+
+<ul>
+<li id="sec-3-3-1-1-1">Re-use common names in different contexts<br/>
+<ul>
+<li id="sec-3-3-1-1-1-1">e.g. clojure.core/replace and clojure.string/replace<br/>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-1-1-2">Separate application "layers" or "components"<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-1-1-3">Libraries<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-1-1-4">Separate "public API" and "internal implementation"<br/>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-3-1-2" class="outline-5">
+<h5 id="sec-3-3-1-2"><span class="section-number-5">3.3.1.2</span> Namespace-Qualified Vars &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-3-1-2">
+
+
+
+
+<pre class="src src-clojure"><span class="org-comment-delimiter">;; </span><span class="org-comment">In the namespace "foo.bar"</span>
+(<span class="org-keyword">defn</span> <span class="org-function-name">hello</span> [] (<span class="org-variable-name">println</span> <span class="org-string">"Hello, World!"</span>))
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">In another namespace</span>
+(foo.bar/hello)   <span class="org-comment-delimiter">; </span><span class="org-comment">namespace-qualified</span>
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-3-1-3" class="outline-5">
+<h5 id="sec-3-3-1-3"><span class="section-number-5">3.3.1.3</span> Namespace Operations &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-3-1-3">
+
+<ul>
+<li id="sec-3-3-1-3-1">Load: find source on classpath &amp; eval it<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-1-3-2">Alias: make shorter name for namespace-qualified symbols<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-1-3-3">Refer: copy symbol bindings from another namespace into current namespace<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-1-3-4">Import: make Java class names available in current namespace<br/>
+
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-3-2" class="outline-4">
+<h4 id="sec-3-3-2"><span class="section-number-4">3.3.2</span> <code>ns</code> macro</h4>
+<div class="outline-text-4" id="text-3-3-2">
+
+
+</div>
+
+<div id="outline-container-3-3-2-1" class="outline-5">
+<h5 id="sec-3-3-2-1"><span class="section-number-5">3.3.2.1</span> <code>ns</code> Declaration &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-3-2-1">
+
+<ul>
+<li id="sec-3-3-2-1-1">Creates namespace and loads, aliases what you need<br/>
+<ul>
+<li id="sec-3-3-2-1-1-1">At top of file<br/>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-2-1-2">Refers all of <code>clojure.core</code><br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-2-1-3">Imports all of <code>java.lang</code><br/>
+
+
+
+
+<pre class="src src-clojure"><span class="org-comment-delimiter">;; </span><span class="org-comment">in file foo/bar/baz_quux.clj</span>
+(<span class="org-builtin">ns</span> foo.bar.baz-quux)
+</pre>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-3-2-2" class="outline-5">
+<h5 id="sec-3-3-2-2"><span class="section-number-5">3.3.2.2</span> <code>require</code> &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-3-2-2">
+
+<ul>
+<li id="sec-3-3-2-2-1">Loads the namespace if not already loaded<br/>
+<ul>
+<li id="sec-3-3-2-2-1-1">Argument is a symbol, must be quoted<br/>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-2-2-2">Have to refer to things with fully-qualified names<br/>
+
+
+
+
+<pre class="src src-clojure">(<span class="org-builtin">ns</span> my-ns
+  (<span class="org-constant">:require</span> clojure.set))
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; nil</span>
+
+(clojure.set/<span class="org-type">union</span> #{1 2} #{2 3 4})
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; #{1 2 3 4}</span>
+</pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-3-2-3" class="outline-5">
+<h5 id="sec-3-3-2-3"><span class="section-number-5">3.3.2.3</span> <code>require :as</code> &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-3-2-3">
+
+<ul>
+<li id="sec-3-3-2-3-1">Loads the namespace if not already loaded<br/>
+<ul>
+<li id="sec-3-3-2-3-1-1">Argument is a vector, must be quoted<br/>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-2-3-2">Aliases the namespace to alternate name<br/>
+
+
+
+
+<pre class="src src-clojure">(<span class="org-builtin">ns</span> my-ns
+  (<span class="org-constant">:require</span> [clojure.set <span class="org-constant">:as</span> set]))
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; nil</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">"set" is an alias for "clojure.set"</span>
+(set/<span class="org-type">union</span> #{1 2} #{2 3 4})
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; #{1 2 3 4}</span>
+</pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-3-2-4" class="outline-5">
+<h5 id="sec-3-3-2-4"><span class="section-number-5">3.3.2.4</span> <code>use</code> &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-3-2-4">
+
+<ul>
+<li id="sec-3-3-2-4-1">Loads the namespace if not already loaded<br/>
+<ul>
+<li id="sec-3-3-2-4-1-1">Argument is a symbol, must be quoted<br/>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-2-4-2">Refers all symbols into current namespace<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-2-4-3">Warns when symbols clash<br/>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-3-2-5" class="outline-5">
+<h5 id="sec-3-3-2-5"><span class="section-number-5">3.3.2.5</span> <code>use</code> Example &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-3-2-5">
+
+
+
+
+<pre class="src src-clojure">(<span class="org-builtin">ns</span> my-ns
+  (<span class="org-constant">:use</span> clojure.string))
+<span class="org-comment-delimiter">;; </span><span class="org-comment">WARNING: reverse already refers</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">to: #'clojure.core/reverse in</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">namespace: user, being reversed</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">by: #'clojure.string/reverse</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">...</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; nil</span>
+
+(<span class="org-variable-name">reverse</span> <span class="org-string">"hello"</span>)
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; "olleh"</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-3-2-6" class="outline-5">
+<h5 id="sec-3-3-2-6"><span class="section-number-5">3.3.2.6</span> <code>use :only</code> &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-3-2-6">
+
+<ul>
+<li id="sec-3-3-2-6-1">Loads the namespace if not already loaded<br/>
+<ul>
+<li id="sec-3-3-2-6-1-1">Argument is a vector, must be quoted<br/>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-2-6-2">Refers only specified symbols into current namespace<br/>
+
+
+
+
+<pre class="src src-clojure">(<span class="org-builtin">ns</span> my-ns
+  (<span class="org-constant">:use</span> [clojure.string <span class="org-constant">:only</span> (<span class="org-type">join</span>)]))
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; nil</span>
+(<span class="org-type">join</span> <span class="org-string">","</span> [1 2 3])
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; "1,2,3"</span>
+</pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-3-2-7" class="outline-5">
+<h5 id="sec-3-3-2-7"><span class="section-number-5">3.3.2.7</span> <code>import</code> &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-3-2-7">
+
+<ul>
+<li id="sec-3-3-2-7-1">Makes Java classes available w/o package prefix in current namespace<br/>
+<ul>
+<li id="sec-3-3-2-7-1-1">Argument is a list, quoting is optional<br/>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-2-7-2">Does not support aliases/renaming<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-2-7-3">Does not support Java's <code>import *</code><br/>
+
+
+
+
+<pre class="src src-clojure">(<span class="org-builtin">ns</span> my-ns
+  (<span class="org-constant">:import</span> (java.io <span class="org-preprocessor">FileReader</span> <span class="org-preprocessor">File</span>))
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; nil</span>
+(<span class="org-preprocessor">FileReader.</span> (<span class="org-preprocessor">File.</span> <span class="org-string">"readme.txt"</span>))
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; #&lt;FileReader ...&gt;</span>
+</pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-3-2-8" class="outline-5">
+<h5 id="sec-3-3-2-8"><span class="section-number-5">3.3.2.8</span> <code>ns</code> Complete Example &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-3-2-8">
+
+
+
+
+<pre class="src src-clojure">(<span class="org-builtin">ns</span> name
+  (<span class="org-constant">:require</span> [some.ns.foo <span class="org-constant">:as</span> foo]
+            [other.ns.bar <span class="org-constant">:as</span> bar])
+  (<span class="org-constant">:use</span> [this.ns.baz <span class="org-constant">:only</span> (a b c)]
+        [that.ns.quux <span class="org-constant">:only</span> (d e f)])
+  (<span class="org-constant">:import</span> (java.io <span class="org-preprocessor">File</span> <span class="org-preprocessor">FileWriter</span>)
+           (java.net URL URI)))
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-3-2-9" class="outline-5">
+<h5 id="sec-3-3-2-9"><span class="section-number-5">3.3.2.9</span> Namespaces and Files &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-3-2-9">
+
+<ul>
+<li id="sec-3-3-2-9-1">For require/use to work, have to find code defining namespace<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-2-9-2">Clojure converts namespace name to path and looks on CLASSPATH<br/>
+<ul>
+<li id="sec-3-3-2-9-2-1">Dots in namespace name become /<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-2-9-2-2">Hyphens become underscores<br/>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-2-9-3">Idiomatic to define namespace per file<br/>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-3-2-10" class="outline-5">
+<h5 id="sec-3-3-2-10"><span class="section-number-5">3.3.2.10</span> Namespaces in the REPL &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-3-2-10">
+
+<ul>
+<li id="sec-3-3-2-10-1"><code>in-ns</code> switches to namespace<br/>
+<ul>
+<li id="sec-3-3-2-10-1-1">Creates namespace if it doesn't exist<br/>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-2-10-2">Argument is a symbol, must be quoted<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-3-2-10-3">REPL always starts in namespace "user"<br/>
+
+
+
+
+<pre class="src src-clojure">user=&gt; (<span class="org-builtin">in-ns</span> 'foo.bar.baz)
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; nil</span>
+foo.bar.baz=&gt;
+</pre>
+
+
+
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> Working with Java &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-3-4">
+
+
+
+
+</div>
+
+<div id="outline-container-3-4-1" class="outline-4">
+<h4 id="sec-3-4-1"><span class="section-number-4">3.4.1</span> Invoking Java code &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-3-4-1">
+
+
+<ul>
+<li>Clojure provides operational forms for Java invocation
+</li>
+</ul>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">Task</th><th scope="col" class="left">Java</th><th scope="col" class="left">Clojure</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">Instantiation</td><td class="left"><code>new Widget("foo")</code></td><td class="left"><code>(Widget. "foo")</code></td></tr>
+<tr><td class="left">Instance method</td><td class="left"><code>rnd.nextInt()</code></td><td class="left"><code>(.nextInt rnd)</code></td></tr>
+<tr><td class="left">Instance field</td><td class="left"><code>object.field</code></td><td class="left"><code>(.-field object)</code></td></tr>
+<tr><td class="left">Static method</td><td class="left"><code>Math.sqrt(25)</code></td><td class="left"><code>(Math/sqrt 25)</code></td></tr>
+<tr><td class="left">Static field</td><td class="left"><code>Math.PI</code></td><td class="left"><code>Math/PI</code></td></tr>
+</tbody>
+</table>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-4-2" class="outline-4">
+<h4 id="sec-3-4-2"><span class="section-number-4">3.4.2</span> Chaining access &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-3-4-2">
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">Language</th><th scope="col" class="left">Syntax</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">java</td><td class="left"><code>person.getAddress().getZipCode()</code></td></tr>
+<tr><td class="left">clojure</td><td class="left"><code>(.getZipCode (.getAddress person))</code></td></tr>
+<tr><td class="left">clojure sugar</td><td class="left"><code>(.. person getAddress getZipCode)</code></td></tr>
+</tbody>
+</table>
+
+
+
+</div>
+
+<div id="outline-container-3-4-2-1" class="outline-5">
+<h5 id="sec-3-4-2-1"><span class="section-number-5">3.4.2.1</span> Notes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notes">notes</span></span></h5>
+<div class="outline-text-5" id="text-3-4-2-1">
+
+
+<ul>
+<li>Just a taste of macros
+</li>
+<li>Clojure has fewer parens than Java!
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-4-3" class="outline-4">
+<h4 id="sec-3-4-3"><span class="section-number-4">3.4.3</span> Atomic data types &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-3-4-3">
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">Type</th><th scope="col" class="left">Example</th><th scope="col" class="left">Java equivalent</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">string</td><td class="left"><code>"foo"</code></td><td class="left">String</td></tr>
+<tr><td class="left">character</td><td class="left"><code>\f</code></td><td class="left">Character</td></tr>
+<tr><td class="left">regex</td><td class="left"><code>#"fo*"</code></td><td class="left">Pattern</td></tr>
+<tr><td class="left">integer</td><td class="left"><code>42</code></td><td class="left">Long</td></tr>
+<tr><td class="left">arbitrary-precision integer</td><td class="left"><code>42N</code></td><td class="left">clojure.lang.BigInt</td></tr>
+<tr><td class="left">double</td><td class="left"><code>3.14159</code></td><td class="left">Double</td></tr>
+<tr><td class="left">arbitrary-precision decimal</td><td class="left"><code>3.14159M</code></td><td class="left">BigDecimal</td></tr>
+</tbody>
+</table>
+
+
+
+</div>
+
+<div id="outline-container-3-4-3-1" class="outline-5">
+<h5 id="sec-3-4-3-1"><span class="section-number-5">3.4.3.1</span> Notes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notes">notes</span></span></h5>
+<div class="outline-text-5" id="text-3-4-3-1">
+
+
+<ul>
+<li>Clojure types are Java types
+</li>
+<li>clojure.lang.BigInt fixes bugs in Java BigInteger
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-4-3-2" class="outline-5">
+<h5 id="sec-3-4-3-2"><span class="section-number-5">3.4.3.2</span> Atomic data types &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-4-3-2">
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">Type</th><th scope="col" class="left">Example</th><th scope="col" class="left">Java equivalent</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">boolean</td><td class="left"><code>true</code></td><td class="left">Boolean</td></tr>
+<tr><td class="left">nil</td><td class="left"><code>nil</code></td><td class="left"><code>null</code></td></tr>
+<tr><td class="left">symbol</td><td class="left"><code>foo</code></td><td class="left">clojure.lang.Symbol</td></tr>
+<tr><td class="left">keyword</td><td class="left"><code>:foo</code></td><td class="left">clojure.lang.Keyword</td></tr>
+</tbody>
+</table>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-4-3-3" class="outline-5">
+<h5 id="sec-3-4-3-3"><span class="section-number-5">3.4.3.3</span> Composite data types &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-4-3-3">
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">Type</th><th scope="col" class="left">Example</th><th scope="col" class="left">Java equivalent</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">list</td><td class="left"><code>(1 2 3)</code></td><td class="left">java.util.List*</td></tr>
+<tr><td class="left">vector</td><td class="left"><code>[4 5 6]</code></td><td class="left">java.util.List*</td></tr>
+<tr><td class="left">map</td><td class="left"><code>{:a 1 :b 2}</code></td><td class="left">java.util.Map*</td></tr>
+<tr><td class="left">set</td><td class="left"><code>#{3 7 9}</code></td><td class="left">java.util.Set*</td></tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>*read-only
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-4-3-4" class="outline-5">
+<h5 id="sec-3-4-3-4"><span class="section-number-5">3.4.3.4</span> Java methods vs functions &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-4-3-4">
+
+
+<ul>
+<li>Java methods are not Clojure functions
+</li>
+<li>Can't store them, pass them as arguments
+</li>
+<li>Can wrap them in functions when necessary
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure"><span class="org-comment-delimiter">;; </span><span class="org-comment">make a function to invoke .length on arg</span>
+(<span class="org-variable-name">fn</span> [obj] (<span class="org-preprocessor">.length</span> obj))
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-4-4" class="outline-4">
+<h4 id="sec-3-4-4"><span class="section-number-4">3.4.4</span> Generating sound with javax.sound.midi &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-3-4-4">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-builtin">ns</span> tutorial.midi
+  (<span class="org-constant">:import</span> (javax.sound.midi <span class="org-preprocessor">MidiSystem</span> <span class="org-preprocessor">Synthesizer</span>)))
+
+(<span class="org-keyword">defn</span> <span class="org-function-name">play-a-note</span> [note velocity duration]
+  (<span class="org-builtin">with-open</span> [synth (<span class="org-builtin">doto</span> (<span class="org-preprocessor">MidiSystem/getSynthesizer</span>) <span class="org-preprocessor">.open</span>)]
+    (<span class="org-builtin">let</span> [channel (<span class="org-variable-name">aget</span> (<span class="org-preprocessor">.getChannels</span> synth) 0)]
+      (<span class="org-preprocessor">.noteOn</span> channel note velocity)
+      (<span class="org-preprocessor">Thread/sleep</span> duration))))
+
+(play-a-note 60 127 3000)
+
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-3-4-4-1" class="outline-5">
+<h5 id="sec-3-4-4-1"><span class="section-number-5">3.4.4.1</span> Exercise: Make Some Noise! &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-4-4-1">
+
+
+<ul>
+<li id="sec-3-4-4-1-1">Find the code in <code>src/tutorial/midi.clj</code><br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-4-4-1-2">Can you play a progression of notes?<br/>
+
+
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-5" class="outline-3">
+<h3 id="sec-3-5"><span class="section-number-3">3.5</span> Collections &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-3-5">
+
+
+
+</div>
+
+<div id="outline-container-3-5-1" class="outline-4">
+<h4 id="sec-3-5-1"><span class="section-number-4">3.5.1</span> Overview</h4>
+<div class="outline-text-4" id="text-3-5-1">
+
+
+
+</div>
+
+<div id="outline-container-3-5-1-1" class="outline-5">
+<h5 id="sec-3-5-1-1"><span class="section-number-5">3.5.1.1</span> Wisdom of the Ancients &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-1-1">
+
+
+<ul>
+<li>"It is better to have 100 functions operate on one data structure than to have 10 functions operate on 10 data structures." - Alan J. Perlis
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-1-2" class="outline-5">
+<h5 id="sec-3-5-1-2"><span class="section-number-5">3.5.1.2</span> Working With Data &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-1-2">
+
+
+<ul>
+<li>Clojure provides extensive facilities for representing and manipulating data
+</li>
+<li>Small number of data structures
+</li>
+<li>Seq abstraction common across data structures &amp; more
+</li>
+<li>Large library of functions across all of them
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-1-3" class="outline-5">
+<h5 id="sec-3-5-1-3"><span class="section-number-5">3.5.1.3</span> Immutability &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-1-3">
+
+
+<ul>
+<li>The values of simple types are immutable
+<ul>
+<li>4, 0.5, true
+</li>
+</ul>
+
+</li>
+<li>In Clojure, the values of compound data structures are immutable too
+<ul>
+<li>Key to Clojure's concurrency model
+</li>
+</ul>
+
+</li>
+<li>Code never changes values, generates new ones to refer to instead
+</li>
+<li>Persistent data structures ensure this is efficient in time and space
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-1-4" class="outline-5">
+<h5 id="sec-3-5-1-4"><span class="section-number-5">3.5.1.4</span> Persistent Data Structures &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-1-4">
+
+
+<ul>
+<li>New values built from old values + modifications
+</li>
+<li>New values are not full copies
+</li>
+<li>New value and old value are both available after 'changes'
+</li>
+<li>Collection maintains its performance guarantees for most operations
+</li>
+<li>All Clojure data structures are persistent
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-1-5" class="outline-5">
+<h5 id="sec-3-5-1-5"><span class="section-number-5">3.5.1.5</span> Example: Linked List &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-1-5">
+
+
+<p>
+<img src="slide-assets/collections-linked-list-1.svg"  alt="slide-assets/collections-linked-list-1.svg" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-1-6" class="outline-5">
+<h5 id="sec-3-5-1-6"><span class="section-number-5">3.5.1.6</span> Example: Linked List &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-1-6">
+
+
+<p>
+<img src="slide-assets/collections-linked-list-2.svg"  alt="slide-assets/collections-linked-list-2.svg" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-1-7" class="outline-5">
+<h5 id="sec-3-5-1-7"><span class="section-number-5">3.5.1.7</span> Example: Binary Tree &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-1-7">
+
+
+<p>
+<img src="slide-assets/collections-tree-1.svg"  alt="slide-assets/collections-tree-1.svg" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-1-8" class="outline-5">
+<h5 id="sec-3-5-1-8"><span class="section-number-5">3.5.1.8</span> Example: Tree Structure &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-1-8">
+
+
+<p>
+<img src="slide-assets/collections-structural-sharing.svg"  alt="slide-assets/collections-structural-sharing.svg" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-1-9" class="outline-5">
+<h5 id="sec-3-5-1-9"><span class="section-number-5">3.5.1.9</span> Concrete Data Structures &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-1-9">
+
+
+<ul>
+<li>Sequential
+<ul>
+<li>List, Vector
+</li>
+</ul>
+
+</li>
+<li>Associative
+<ul>
+<li>Map, Vector
+</li>
+</ul>
+
+</li>
+<li>Both types support declarative destructuring
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-2" class="outline-4">
+<h4 id="sec-3-5-2"><span class="section-number-4">3.5.2</span> Sequential</h4>
+<div class="outline-text-4" id="text-3-5-2">
+
+
+
+</div>
+
+<div id="outline-container-3-5-2-1" class="outline-5">
+<h5 id="sec-3-5-2-1"><span class="section-number-5">3.5.2.1</span> Lists &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-2-1">
+
+
+<ul>
+<li>Singly-linked lists
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">()              <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; the empty list</span>
+(1 2 3)         <span class="org-comment-delimiter">; </span><span class="org-comment">error because 1 not function</span>
+(<span class="org-variable-name">list</span> 1 2 3)    <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; (1 2 3)</span>
+'(1 2 3)        <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; (1 2 3)</span>
+(<span class="org-variable-name">conj</span> '(2 3) 1) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; (1 2 3)</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-2-2" class="outline-5">
+<h5 id="sec-3-5-2-2"><span class="section-number-5">3.5.2.2</span> Vectors &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-2-2">
+
+
+<ul>
+<li>Indexed, random-access, array-like
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">[]              <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; the empty vector</span>
+[1 2 3]         <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; [1 2 3]</span>
+(<span class="org-variable-name">vector</span> 1 2 3)  <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; [1 2 3]</span>
+(<span class="org-variable-name">vec</span> '(1 2 3))  <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; [1 2 3]</span>
+(<span class="org-variable-name">nth</span> [1 2 3] 0) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; 1</span>
+(<span class="org-variable-name">conj</span> [1 2] 3)  <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; [1 2 3]</span>
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-3" class="outline-4">
+<h4 id="sec-3-5-3"><span class="section-number-4">3.5.3</span> Associative</h4>
+<div class="outline-text-4" id="text-3-5-3">
+
+
+
+</div>
+
+<div id="outline-container-3-5-3-1" class="outline-5">
+<h5 id="sec-3-5-3-1"><span class="section-number-5">3.5.3.1</span> Maps &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-3-1">
+
+
+<ul>
+<li>Key =&gt; value, hash table, dictionary
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">{}                  <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; the empty map</span>
+{<span class="org-constant">:a</span> 1 <span class="org-constant">:b</span> 2}         <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; {:a 1 :b 2}</span>
+(<span class="org-constant">:a</span> {<span class="org-constant">:a</span> 1 <span class="org-constant">:b</span> 2})    <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; 1</span>
+({<span class="org-constant">:a</span> 1 <span class="org-constant">:b</span> 2} <span class="org-constant">:a</span>)    <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; 1</span>
+(<span class="org-variable-name">assoc</span> {<span class="org-constant">:a</span> 1} <span class="org-constant">:b</span> 2) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; {:a 1 :b 2}</span>
+(<span class="org-variable-name">dissoc</span> {<span class="org-constant">:a</span> 1} <span class="org-constant">:a</span>)  <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; {}</span>
+(<span class="org-variable-name">conj</span> {} [<span class="org-constant">:a</span> 1])    <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; {:a 1}</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-3-2" class="outline-5">
+<h5 id="sec-3-5-3-2"><span class="section-number-5">3.5.3.2</span> Nested Access &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-3-2">
+
+
+<ul>
+<li>Helper functions access data via path specified by keys
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">def</span> <span class="org-function-name">jdoe</span> {<span class="org-constant">:name</span> <span class="org-string">"John Doe"</span>, <span class="org-constant">:address</span> {<span class="org-constant">:zip</span> 27705}})
+
+(<span class="org-variable-name">get-in</span> jdoe [<span class="org-constant">:address</span> <span class="org-constant">:zip</span>]) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; 27705</span>
+
+(<span class="org-variable-name">assoc-in</span> jdoe [<span class="org-constant">:address</span> <span class="org-constant">:zip</span>] 27514)
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; {:name "John Doe", :address {:zip 27514}}</span>
+
+(<span class="org-variable-name">update-in</span> jdoe [<span class="org-constant">:address</span> <span class="org-constant">:zip</span>] inc)
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; {:name "John Doe", :address {:zip 27706}}</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-3-3" class="outline-5">
+<h5 id="sec-3-5-3-3"><span class="section-number-5">3.5.3.3</span> Sets &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-3-3">
+
+
+<ul>
+<li>Set of distinct values
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">#{}                  <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; the empty set</span>
+#{<span class="org-constant">:a</span> <span class="org-constant">:b</span>}             <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; #{:a :b}</span>
+(#{<span class="org-constant">:a</span> <span class="org-constant">:b</span>} <span class="org-constant">:a</span>)        <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; :a</span>
+(<span class="org-variable-name">conj</span> #{} <span class="org-constant">:a</span>)        <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; #{:a}</span>
+(<span class="org-variable-name">contains?</span> #{<span class="org-constant">:a</span>} <span class="org-constant">:a</span>) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; true</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-3-4" class="outline-5">
+<h5 id="sec-3-5-3-4"><span class="section-number-5">3.5.3.4</span> clojure.set Examples &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-3-4">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-variable-name">require</span> '[clojure.set <span class="org-constant">:as</span> set])
+(set/<span class="org-type">union</span> #{<span class="org-constant">:a</span>} #{<span class="org-constant">:b</span>})              <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; #{:a :b}</span>
+(set/<span class="org-type">difference</span> #{<span class="org-constant">:a</span> <span class="org-constant">:b</span>} #{<span class="org-constant">:a</span>})      <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; #{:b}</span>
+(set/<span class="org-type">intersection</span> #{<span class="org-constant">:a</span> <span class="org-constant">:b</span>} #{<span class="org-constant">:b</span> <span class="org-constant">:c</span>}) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; #{:b}</span>
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-4" class="outline-4">
+<h4 id="sec-3-5-4"><span class="section-number-4">3.5.4</span> Destructuring</h4>
+<div class="outline-text-4" id="text-3-5-4">
+
+
+
+</div>
+
+<div id="outline-container-3-5-4-1" class="outline-5">
+<h5 id="sec-3-5-4-1"><span class="section-number-5">3.5.4.1</span> Destructuring &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-4-1">
+
+
+<ul>
+<li>Declarative way to pull apart compound data
+<ul>
+<li>vs. explicit, verbose access
+</li>
+</ul>
+
+</li>
+<li>Works for both sequential and associative data structures
+</li>
+<li>Nests for deep, arbitrary access
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-4-2" class="outline-5">
+<h5 id="sec-3-5-4-2"><span class="section-number-5">3.5.4.2</span> Where You Can Destructure &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-4-2">
+
+
+<ul>
+<li>Destructuring works in <code>fn</code> and <code>defn</code> params, <code>let</code> bindings
+<ul>
+<li>And anything built on top of them
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-4-3" class="outline-5">
+<h5 id="sec-3-5-4-3"><span class="section-number-5">3.5.4.3</span> Sequential Destructuring &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-4-3">
+
+
+<ul>
+<li>Provide vector of symbols to bind by position
+<ul>
+<li>Binds to <code>nil</code> if there's no data
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">def</span> <span class="org-function-name">stuff</span> [7 8 9 10 11]) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; #'user/stuff</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Bind a, b, c to first 3 values in stuff</span>
+(<span class="org-builtin">let</span> [[a b c] stuff]
+  (<span class="org-variable-name">list</span> (<span class="org-variable-name">+</span> a b) (<span class="org-variable-name">+</span> b c)))
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; (15 17)</span>
+(<span class="org-builtin">let</span> [[a b c d e f] stuff]
+  (<span class="org-variable-name">list</span> d e f))
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; (10 11 nil)</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-4-4" class="outline-5">
+<h5 id="sec-3-5-4-4"><span class="section-number-5">3.5.4.4</span> Sequential Destructuring &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-4-4">
+
+
+<ul>
+<li>Can get "everything else" with <code>&amp;</code>
+<ul>
+<li>Value is a sequence
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">def</span> <span class="org-function-name">stuff</span> [7 8 9 10 11]) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; #'user/stuff</span>
+(<span class="org-builtin">let</span> [[a &amp; others] stuff]
+  (<span class="org-variable-name">println</span> a)
+  (<span class="org-variable-name">println</span> others))
+<span class="org-comment-delimiter">;; </span><span class="org-comment">7</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">(8 9 10 11)</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; nil</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-4-5" class="outline-5">
+<h5 id="sec-3-5-4-5"><span class="section-number-5">3.5.4.5</span> Sequential Destructuring &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-4-5">
+
+
+<ul>
+<li>Idiomatic to use <code>_</code> for values you don't care about
+</li>
+</ul>
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">def</span> <span class="org-function-name">stuff</span> [7 8 9 10 11]) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; #'user/stuff</span>
+(<span class="org-builtin">let</span> [[_ &amp; others] stuff] <span class="org-comment-delimiter">; </span><span class="org-comment">skip the first one</span>
+  (<span class="org-variable-name">println</span> others)))
+<span class="org-comment-delimiter">;; </span><span class="org-comment">(8 9 10 11)</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; nil</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-4-6" class="outline-5">
+<h5 id="sec-3-5-4-6"><span class="section-number-5">3.5.4.6</span> Associative Destructuring &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-4-6">
+
+
+<ul>
+<li>Provide map of symbols to bind by key
+<ul>
+<li>Binds to <code>nil</code> if there's no value
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">def</span> <span class="org-function-name">m</span> {<span class="org-constant">:a</span> 7 <span class="org-constant">:b</span> 4}) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; #'user/m</span>
+(<span class="org-builtin">let</span> [{a <span class="org-constant">:a</span>, b <span class="org-constant">:b</span>} m]
+  [a b])
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; [7 4]</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-4-7" class="outline-5">
+<h5 id="sec-3-5-4-7"><span class="section-number-5">3.5.4.7</span> Associative Destructuring &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-4-7">
+
+
+<ul>
+<li>Keys can be inferred from vector of symbols to bind
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">def</span> <span class="org-function-name">m</span> {<span class="org-constant">:a</span> 7 <span class="org-constant">:b</span> 4}) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; #'user/m</span>
+(<span class="org-builtin">let</span> [{<span class="org-constant">:keys</span> [a b]} m]
+  [a b])
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; [7 4]</span>
+(<span class="org-builtin">let</span> [{<span class="org-constant">:keys</span> [a b c]} m]
+  [a b c])
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; [7 4 nil]</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-4-8" class="outline-5">
+<h5 id="sec-3-5-4-8"><span class="section-number-5">3.5.4.8</span> Associative Destructuring &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-4-8">
+
+
+<ul>
+<li>Use <code>:or</code> to provide default values for bound keys
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">def</span> <span class="org-function-name">m</span> {<span class="org-constant">:a</span> 7 <span class="org-constant">:b</span> 4}) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; #'user/m</span>
+(<span class="org-builtin">let</span> [{<span class="org-constant">:keys</span> [a b c]
+       <span class="org-constant">:or</span> {c 3}} m]
+  [a b c])
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; [7 4 3]</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-4-9" class="outline-5">
+<h5 id="sec-3-5-4-9"><span class="section-number-5">3.5.4.9</span> Named Arguments &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-4-9">
+
+
+<ul>
+<li>Applying vector of keys to <code>&amp;</code> binding emulates named args
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">game</span> [planet &amp; {<span class="org-constant">:keys</span> [human-players computer-players]}]
+  (<span class="org-variable-name">println</span> <span class="org-string">"Total players: "</span> (<span class="org-variable-name">+</span> human-players computer-players)))
+
+(game <span class="org-string">"Mars"</span> <span class="org-constant">:human-players</span> 1 <span class="org-constant">:computer-players</span> 2)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Total players: 3</span>
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-5" class="outline-4">
+<h4 id="sec-3-5-5"><span class="section-number-4">3.5.5</span> Sequences</h4>
+<div class="outline-text-4" id="text-3-5-5">
+
+
+
+</div>
+
+<div id="outline-container-3-5-5-1" class="outline-5">
+<h5 id="sec-3-5-5-1"><span class="section-number-5">3.5.5.1</span> Sequences &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-5-1">
+
+
+<ul>
+<li>Abstraction for representing iteration
+</li>
+<li>Backed by a data structure or a function
+<ul>
+<li>Can be lazy and/or "infinite"
+</li>
+</ul>
+
+</li>
+<li>Foundation for large library of functions
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-5-2" class="outline-5">
+<h5 id="sec-3-5-5-2"><span class="section-number-5">3.5.5.2</span> Sequence API &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-5-2">
+
+
+<ul>
+<li><code>(seq coll)</code>
+<ul>
+<li>If collection is non-empty, return seq object on it, else <code>nil</code>
+</li>
+<li>Can't recover input source from seq
+</li>
+</ul>
+
+</li>
+<li><code>(first coll)</code>
+<ul>
+<li>Returns the first element
+</li>
+</ul>
+
+</li>
+<li><code>(rest coll)</code>
+<ul>
+<li>Returns a sequence of the rest of the elements
+</li>
+</ul>
+
+</li>
+<li><code>(cons x coll)</code>
+<ul>
+<li>Returns a new sequence: first is x, rest is coll
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-5-3" class="outline-5">
+<h5 id="sec-3-5-5-3"><span class="section-number-5">3.5.5.3</span> Sequences Over Structures &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-5-3">
+
+
+<ul>
+<li>Can treat any Clojure data structure as a seq
+<ul>
+<li>Associative structures treated as sequence of pairs
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">def</span> <span class="org-function-name">a-list</span> '(1 2 3)) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; #'user/a-list</span>
+</pre>
+
+
+<p>
+<img src="slide-assets/collections-seq-list-initial.svg"  alt="slide-assets/collections-seq-list-initial.svg" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-5-4" class="outline-5">
+<h5 id="sec-3-5-5-4"><span class="section-number-5">3.5.5.4</span> Sequence Over Structure &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-5-4">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-variable-name">first</span> a-list) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; 1</span>
+</pre>
+
+
+<p>
+<img src="slide-assets/collections-seq-list-first.svg"  alt="slide-assets/collections-seq-list-first.svg" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-5-5" class="outline-5">
+<h5 id="sec-3-5-5-5"><span class="section-number-5">3.5.5.5</span> Sequence Over Structure &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-5-5">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-variable-name">second</span> a-list) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; 2</span>
+</pre>
+
+
+<p>
+<img src="slide-assets/collections-seq-list-second.svg"  alt="slide-assets/collections-seq-list-second.svg" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-5-6" class="outline-5">
+<h5 id="sec-3-5-5-6"><span class="section-number-5">3.5.5.6</span> Sequence Over Structure &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-5-6">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-variable-name">rest</span> a-list) <span class="org-comment-delimiter">; </span><span class="org-comment">seq</span>
+</pre>
+
+
+<p>
+<img src="slide-assets/collections-seq-list-rest.svg"  alt="slide-assets/collections-seq-list-rest.svg" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-5-7" class="outline-5">
+<h5 id="sec-3-5-5-7"><span class="section-number-5">3.5.5.7</span> Sequences Over Functions &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-5-7">
+
+
+<ul>
+<li>Can map a generator function to a seq
+</li>
+<li>Seq is lazy, can be infinite
+<ul>
+<li>Can process more than fits in memory
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">def</span> <span class="org-function-name">a-range</span> (<span class="org-variable-name">range</span> 1 4)) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; #'user/a-range</span>
+</pre>
+
+
+<p>
+<img src="slide-assets/collections-seq-lazy-initial.svg"  alt="slide-assets/collections-seq-lazy-initial.svg" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-5-8" class="outline-5">
+<h5 id="sec-3-5-5-8"><span class="section-number-5">3.5.5.8</span> Sequences Over Functions &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-5-8">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-variable-name">first</span> a-range) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; 1</span>
+</pre>
+
+
+<p>
+<img src="slide-assets/collections-seq-lazy-first.svg"  alt="slide-assets/collections-seq-lazy-first.svg" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-5-9" class="outline-5">
+<h5 id="sec-3-5-5-9"><span class="section-number-5">3.5.5.9</span> Sequences Over Functions &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-5-9">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-variable-name">second</span> a-range) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; 2</span>
+</pre>
+
+
+<p>
+<img src="slide-assets/collections-seq-lazy-second.svg"  alt="slide-assets/collections-seq-lazy-second.svg" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-5-10" class="outline-5">
+<h5 id="sec-3-5-5-10"><span class="section-number-5">3.5.5.10</span> Sequences Over Functions &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-5-10">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-variable-name">rest</span> a-range) <span class="org-comment-delimiter">; </span><span class="org-comment">seq</span>
+</pre>
+
+
+<p>
+<img src="slide-assets/collections-seq-lazy-rest.svg"  alt="slide-assets/collections-seq-lazy-rest.svg" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-5-11" class="outline-5">
+<h5 id="sec-3-5-5-11"><span class="section-number-5">3.5.5.11</span> Sequences in the REPL &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-5-11">
+
+
+<ul>
+<li>REPL always prints sequences with parens
+<ul>
+<li>But it's not a list!
+</li>
+</ul>
+
+</li>
+<li>Infinite sequences take a long time to print
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(set! *print-length* 10) <span class="org-comment-delimiter">; </span><span class="org-comment">only print 10 things</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-5-12" class="outline-5">
+<h5 id="sec-3-5-5-12"><span class="section-number-5">3.5.5.12</span> Sequence Library &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-5-12">
+
+
+<ul>
+<li>Generators
+<ul>
+<li>list, vector, map, SQL ResultSet, Stream, Directory, Iterator, XML, &hellip;
+</li>
+</ul>
+
+</li>
+<li>Operations
+<ul>
+<li>map, filter, reduce, count, some, replace, &hellip;
+</li>
+</ul>
+
+</li>
+<li>Generators * Operations = Power!
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-5-13" class="outline-5">
+<h5 id="sec-3-5-5-13"><span class="section-number-5">3.5.5.13</span> Creating a Sequence &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-5-13">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-variable-name">seq</span> [1 2 3]) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; (1 2 3)  ; not a list</span>
+(<span class="org-variable-name">range</span>) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; (0 1 2 ... infinite</span>
+(<span class="org-variable-name">range</span> 3) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; (0 1 2)</span>
+(<span class="org-variable-name">range</span> 1 7 2) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; (1 3 5)</span>
+(<span class="org-variable-name">iterate</span> #(<span class="org-variable-name">*</span> 2 %) 2) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; (2 4 8 16 ... infinite</span>
+(<span class="org-variable-name">re-seq</span> #<span class="org-string">"[aeiou]"</span> <span class="org-string">"clojure"</span>) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; ("o" "u" "e")</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-5-14" class="outline-5">
+<h5 id="sec-3-5-5-14"><span class="section-number-5">3.5.5.14</span> Seq in, Seq out &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-5-14">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-variable-name">take</span> 3 (<span class="org-variable-name">range</span>)) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; (0 1 2)</span>
+(<span class="org-variable-name">drop</span> 3 (<span class="org-variable-name">range</span>)) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; (3 4 5 ... infinite</span>
+(<span class="org-variable-name">map</span> #(<span class="org-variable-name">*</span> % %) [0 1 2 3]) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; (0 1 4 9) ; vector treated as seq</span>
+(<span class="org-variable-name">filter</span> even? (<span class="org-variable-name">range</span>)) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; (0 2 4 6 ... infinite</span>
+(<span class="org-variable-name">apply</span> str (<span class="org-variable-name">interpose</span> <span class="org-string">","</span> (<span class="org-variable-name">range</span> 3))) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; "0,1,2"</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-5-15" class="outline-5">
+<h5 id="sec-3-5-5-15"><span class="section-number-5">3.5.5.15</span> Using a Seq &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-5-15">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-variable-name">reduce</span> + (<span class="org-variable-name">range</span> 4)) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; 6</span>
+(<span class="org-variable-name">reduce</span> + 10 (<span class="org-variable-name">range</span> 4)) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; 16</span>
+(<span class="org-variable-name">into</span> #{} <span class="org-string">"hello"</span>) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; #{\e \h \l \o}</span>
+(<span class="org-variable-name">into</span> {} [[<span class="org-constant">:x</span> 1] [<span class="org-constant">:y</span> 2]]) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; {:x 1, :y 2}</span>
+(<span class="org-variable-name">some</span> {2 <span class="org-constant">:b</span> 3 <span class="org-constant">:c</span>} [1 nil 2 3]) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; :b</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-5-16" class="outline-5">
+<h5 id="sec-3-5-5-16"><span class="section-number-5">3.5.5.16</span> Adopting the Sequence Mindset &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-5-16">
+
+
+<ul>
+<li>Sequence library surface space is big
+</li>
+<li>Most things you want to do are in there somewhere
+</li>
+<li>If you find yourself explicitly iterating, look for a function
+</li>
+<li>The Clojure Cheatsheet helps
+</li>
+<li><a href="http://clojure.org/cheatsheet">http://clojure.org/cheatsheet</a>
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5-5-17" class="outline-5">
+<h5 id="sec-3-5-5-17"><span class="section-number-5">3.5.5.17</span> The Fibonacci Sequence &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-5-17">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">def</span> <span class="org-function-name">fibs</span>            <span class="org-comment-delimiter">; </span><span class="org-comment">define a sequence called fibs...</span>
+  (<span class="org-variable-name">map</span> first         <span class="org-comment-delimiter">; </span><span class="org-comment">that maps the first value of a pair across...</span>
+    (<span class="org-variable-name">iterate</span>         <span class="org-comment-delimiter">; </span><span class="org-comment">a lazy, infinite sequnce that's generated by...</span>
+      (<span class="org-variable-name">fn</span> [[a b]]    <span class="org-comment-delimiter">; </span><span class="org-comment">a function that destructures a pair of args...</span>
+        [b (<span class="org-variable-name">+</span> a b)]) <span class="org-comment-delimiter">; </span><span class="org-comment">and returns the next pair in the sequence...</span>
+      [0 1])))       <span class="org-comment-delimiter">; </span><span class="org-comment">starting at [0 1]</span>
+
+(<span class="org-variable-name">take</span> 5 fibs)        <span class="org-comment-delimiter">; </span><span class="org-comment">consume as many as you'd like</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; (0 1 1 2 3)</span>
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-6" class="outline-4">
+<h4 id="sec-3-5-6"><span class="section-number-4">3.5.6</span> Exercises</h4>
+<div class="outline-text-4" id="text-3-5-6">
+
+
+
+</div>
+
+<div id="outline-container-3-5-6-1" class="outline-5">
+<h5 id="sec-3-5-6-1"><span class="section-number-5">3.5.6.1</span> Exercise: What's That Song? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-6-1">
+
+<ul>
+<li id="sec-3-5-6-1-1">Go back to <code>midi.clj</code> from the previous exercise.<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-5-6-1-2">Play the song in this data structure:<br/>
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">def</span> <span class="org-function-name">notes</span>
+  [{<span class="org-constant">:note</span> 60 <span class="org-constant">:duration</span> 1}
+   {<span class="org-constant">:note</span> 62 <span class="org-constant">:duration</span> 1}
+   {<span class="org-constant">:note</span> 64 <span class="org-constant">:duration</span> 1}
+   {<span class="org-constant">:note</span> 60 <span class="org-constant">:duration</span> 1}
+   {<span class="org-constant">:note</span> 60 <span class="org-constant">:duration</span> 1}
+   {<span class="org-constant">:note</span> 62 <span class="org-constant">:duration</span> 1}
+   {<span class="org-constant">:note</span> 64 <span class="org-constant">:duration</span> 1}
+   {<span class="org-constant">:note</span> 60 <span class="org-constant">:duration</span> 1}
+   {<span class="org-constant">:note</span> 64 <span class="org-constant">:duration</span> 1}
+   {<span class="org-constant">:note</span> 65 <span class="org-constant">:duration</span> 1}
+   {<span class="org-constant">:note</span> 67 <span class="org-constant">:duration</span> 2}
+   {<span class="org-constant">:note</span> 64 <span class="org-constant">:duration</span> 1}
+   {<span class="org-constant">:note</span> 65 <span class="org-constant">:duration</span> 1}
+   {<span class="org-constant">:note</span> 67 <span class="org-constant">:duration</span> 2}])
+</pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-6-2" class="outline-5">
+<h5 id="sec-3-5-6-2"><span class="section-number-5">3.5.6.2</span> Exercise: Improve Your Greeting &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-6-2">
+
+<ul>
+<li id="sec-3-5-6-2-1">Go back to your greeting code from the functions section. Change this so it works for any amount of people.<br/>
+
+
+
+
+<pre class="src src-clojure">(messenger <span class="org-string">"Hello"</span> <span class="org-string">"Clinton"</span>)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Hello, Clinton!</span>
+
+(messenger <span class="org-string">"Hello"</span> <span class="org-string">"Clinton"</span> <span class="org-string">"Alan"</span>)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Hello, Clinton and Alan!</span>
+
+(messenger <span class="org-string">"Hello"</span> <span class="org-string">"Clinton"</span> <span class="org-string">"Alan"</span> <span class="org-string">"all of you"</span>)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Hello, Clinton, Alan, and all of you!</span>
+
+(messenger <span class="org-string">"Hello"</span> <span class="org-string">"Clinton"</span> <span class="org-string">"Alan"</span> <span class="org-string">"Rich"</span> <span class="org-string">"all of you"</span>)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Hello, Clinton, Alan, Rich, and all of you!</span>
+</pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-3-5-6-2-2"><code>last</code>, <code>butlast</code>, <code>list*</code>, and <code>clojure.string/join</code> will come in very helpful in this exercise.<br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-5-6-3" class="outline-5">
+<h5 id="sec-3-5-6-3"><span class="section-number-5">3.5.6.3</span> Exercise: Greeting Solution &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-5-6-3">
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">messenger</span>
+  ([greeting who] (<span class="org-variable-name">str</span> greeting <span class="org-string">", "</span> who <span class="org-string">"!"</span>))
+  ([greeting who1 who2] (<span class="org-variable-name">str</span> greeting <span class="org-string">", "</span> who1 <span class="org-string">" and "</span> who2 <span class="org-string">"!"</span>))
+  ([greeting who1 who2 &amp; whos]
+     (<span class="org-variable-name">str</span>
+      greeting <span class="org-string">", "</span>
+      (clojure.string/<span class="org-type">join</span> <span class="org-string">", "</span> (<span class="org-variable-name">butlast</span> (<span class="org-variable-name">list*</span> who1 who2 whos)))
+      <span class="org-string">", and "</span> (<span class="org-variable-name">last</span> whos) <span class="org-string">"!"</span>)))
+</pre>
+
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-6" class="outline-3">
+<h3 id="sec-3-6"><span class="section-number-3">3.6</span> Flow Control &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-3-6">
+
+
+
+</div>
+
+<div id="outline-container-3-6-1" class="outline-4">
+<h4 id="sec-3-6-1"><span class="section-number-4">3.6.1</span> Introduction</h4>
+<div class="outline-text-4" id="text-3-6-1">
+
+
+</div>
+
+<div id="outline-container-3-6-1-1" class="outline-5">
+<h5 id="sec-3-6-1-1"><span class="section-number-5">3.6.1.1</span> Expressions in Clojure &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-6-1-1">
+
+<ul>
+<li id="sec-3-6-1-1-1">Everything in Clojure is an expression<br/>
+<ul>
+<li id="sec-3-6-1-1-1-1">Always returns a value<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-6-1-1-1-2">A block of multiple expressions returns the last value<br/>
+<ul>
+<li id="sec-3-6-1-1-1-2-1">E.g., <code>let</code>, <code>do</code>, <code>fn</code><br/>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-3-6-1-1-1-3">Expressions exclusively for side-effects return <code>nil</code><br/>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-6-1-2" class="outline-5">
+<h5 id="sec-3-6-1-2"><span class="section-number-5">3.6.1.2</span> Flow Control Expressions &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-6-1-2">
+
+<ul>
+<li id="sec-3-6-1-2-1">Flow control operators are expressions too<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-6-1-2-2">Composable, can use them anywhere<br/>
+<ul>
+<li id="sec-3-6-1-2-2-1">Less duplicate code<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-6-1-2-2-2">Fewer intermediate variables<br/>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-6-1-3" class="outline-5">
+<h5 id="sec-3-6-1-3"><span class="section-number-5">3.6.1.3</span> Truthiness &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-6-1-3">
+
+
+
+
+<pre class="src src-clojure">(<span class="org-builtin">if</span> true <span class="org-constant">:truthy</span> <span class="org-constant">:falsey</span>)
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; :truthy</span>
+(<span class="org-builtin">if</span> (<span class="org-preprocessor">Object.</span>) <span class="org-constant">:truthy</span> <span class="org-constant">:falsey</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">objects are true</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; :truthy</span>
+(<span class="org-builtin">if</span> [] <span class="org-constant">:truthy</span> <span class="org-constant">:falsey</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">empty collections are true</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; :truthy</span>
+
+(<span class="org-builtin">if</span> false <span class="org-constant">:truthy</span> <span class="org-constant">:falsey</span>)
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; :falsey</span>
+(<span class="org-builtin">if</span> nil <span class="org-constant">:truthy</span> <span class="org-constant">:falsey</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">nil is false</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; :falsey</span>
+(<span class="org-builtin">if</span> (<span class="org-variable-name">seq</span> []) <span class="org-constant">:truthy</span> <span class="org-constant">:falsey</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">seq on empty coll is nil</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; :falsey</span>
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-6-1-4" class="outline-5">
+<h5 id="sec-3-6-1-4"><span class="section-number-5">3.6.1.4</span> if &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-6-1-4">
+
+
+
+
+<pre class="src src-clojure">(<span class="org-variable-name">str</span> <span class="org-string">"2 is "</span> (<span class="org-builtin">if</span> (<span class="org-variable-name">even?</span> 2) <span class="org-string">"even"</span> <span class="org-string">"odd"</span>))
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; "2 is even"</span>
+
+<span class="org-comment-delimiter">; </span><span class="org-comment">else-expression is optional</span>
+(<span class="org-builtin">if</span> (<span class="org-variable-name">true?</span> false) <span class="org-string">"impossible!"</span>)
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; nil</span>
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-6-1-5" class="outline-5">
+<h5 id="sec-3-6-1-5"><span class="section-number-5">3.6.1.5</span> if/do &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-6-1-5">
+
+<ul>
+<li id="sec-3-6-1-5-1">Multiple expressions per branch<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-6-1-5-2">Last value in branch returned<br/>
+
+
+
+<pre class="src src-clojure">(<span class="org-builtin">if</span> (<span class="org-variable-name">even?</span> 5)
+  (<span class="org-builtin">do</span> (<span class="org-variable-name">println</span> <span class="org-string">"even"</span>)
+      true)
+  (<span class="org-builtin">do</span> (<span class="org-variable-name">println</span> <span class="org-string">"odd"</span>)
+      false)) <span class="org-comment-delimiter">;</span><span class="org-comment">=&gt; false</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">odd</span>
+</pre>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-6-1-6" class="outline-5">
+<h5 id="sec-3-6-1-6"><span class="section-number-5">3.6.1.6</span> cond &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-6-1-6">
+
+<ul>
+<li id="sec-3-6-1-6-1">Series of tests and expressions<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-6-1-6-2"><code>:else</code> expression is optional<br/>
+
+
+
+<pre class="src src-clojure">(<span class="org-builtin">cond</span>
+ test1 expression1
+ test2 expression2
+ ...
+ <span class="org-constant">:else</span> else-expression)
+</pre>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-6-1-7" class="outline-5">
+<h5 id="sec-3-6-1-7"><span class="section-number-5">3.6.1.7</span> cond &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-6-1-7">
+
+
+
+
+<pre class="src src-clojure">(<span class="org-builtin">let</span> [x 5]
+  (<span class="org-builtin">cond</span>
+   (<span class="org-variable-name">&lt;</span> x 2) <span class="org-string">"x is less than 2"</span>
+   (<span class="org-variable-name">&lt;</span> x 10) <span class="org-string">"x is less than 10"</span>))
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; "x is less than 10"</span>
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-6-1-8" class="outline-5">
+<h5 id="sec-3-6-1-8"><span class="section-number-5">3.6.1.8</span> cond with :else &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-6-1-8">
+
+
+
+
+<pre class="src src-clojure">(<span class="org-builtin">let</span> [x 11]
+  (<span class="org-builtin">cond</span>
+   (<span class="org-variable-name">&lt;</span> x 2) <span class="org-string">"x is less than 2"</span>
+   (<span class="org-variable-name">&lt;</span> x 10) <span class="org-string">"x is less than 10"</span>
+   <span class="org-constant">:else</span> <span class="org-string">"x is greater than or equal to 10"</span>))
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; "x is greater than or equal to 10"</span>
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-6-2" class="outline-4">
+<h4 id="sec-3-6-2"><span class="section-number-4">3.6.2</span> Flow Control Exercise</h4>
+<div class="outline-text-4" id="text-3-6-2">
+
+
+</div>
+
+<div id="outline-container-3-6-2-1" class="outline-5">
+<h5 id="sec-3-6-2-1"><span class="section-number-5">3.6.2.1</span> Exercise: Improve Your Greeting Again &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-6-2-1">
+
+<ul>
+<li id="sec-3-6-2-1-1">Go back to your greeting code. It is kind of a complex mess. Use flow control to make it awesome.<br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-6-2-2" class="outline-5">
+<h5 id="sec-3-6-2-2"><span class="section-number-5">3.6.2.2</span> Exercise: One Greeting Solution &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-6-2-2">
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">messenger</span> [greeting &amp; whos]
+  (<span class="org-builtin">let</span> [x (<span class="org-variable-name">count</span> whos)]
+    (<span class="org-variable-name">apply</span> str greeting <span class="org-string">", "</span>
+           (<span class="org-builtin">cond</span>
+             (<span class="org-variable-name">=</span> x 0) [<span class="org-string">"!"</span>]
+             (<span class="org-variable-name">&lt;</span> x 3) (<span class="org-variable-name">conj</span> (<span class="org-variable-name">vec</span> (<span class="org-variable-name">interpose</span> <span class="org-string">" and "</span> whos)) <span class="org-string">"!"</span>)
+             <span class="org-constant">:else</span> 
+               (<span class="org-variable-name">concat</span> (<span class="org-variable-name">vec</span> (<span class="org-variable-name">interpose</span> <span class="org-string">", "</span> (<span class="org-variable-name">butlast</span> whos))) 
+                       [<span class="org-string">", and "</span> (<span class="org-variable-name">last</span> whos) <span class="org-string">"!"</span>])))))
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-6-3" class="outline-4">
+<h4 id="sec-3-6-3"><span class="section-number-4">3.6.3</span> Iteration</h4>
+<div class="outline-text-4" id="text-3-6-3">
+
+
+</div>
+
+<div id="outline-container-3-6-3-1" class="outline-5">
+<h5 id="sec-3-6-3-1"><span class="section-number-5">3.6.3.1</span> Recursion and Iteration &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-6-3-1">
+
+<ul>
+<li id="sec-3-6-3-1-1">Clojure provides <code>loop</code> and the sequence abstraction<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-6-3-1-2"><code>loop</code> is "classic" recursion<br/>
+<ul>
+<li id="sec-3-6-3-1-2-1">Closed to consumers, lower-level<br/>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-3-6-3-1-3">Sequences represent iteration as values<br/>
+<ul>
+<li id="sec-3-6-3-1-3-1">Consumers can partially iterate<br/>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-6-3-2" class="outline-5">
+<h5 id="sec-3-6-3-2"><span class="section-number-5">3.6.3.2</span> doseq &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-6-3-2">
+
+<ul>
+<li id="sec-3-6-3-2-1">Iterates over a sequence<br/>
+<ul>
+<li id="sec-3-6-3-2-1-1">Similar to Java's foreach loop<br/>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-3-6-3-2-2">If a lazy sequence, <code>doseq</code> forces evaluation<br/>
+
+
+
+<pre class="src src-clojure">(<span class="org-builtin">doseq</span> [n (<span class="org-variable-name">range</span> 3)]
+  (<span class="org-variable-name">println</span> n))
+<span class="org-comment-delimiter">;; </span><span class="org-comment">0</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">1</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">2</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; nil</span>
+</pre>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-6-3-3" class="outline-5">
+<h5 id="sec-3-6-3-3"><span class="section-number-5">3.6.3.3</span> <code>doseq</code> with multiple bindings &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-6-3-3">
+
+<ul>
+<li id="sec-3-6-3-3-1">Similar to nested foreach loops<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-6-3-3-2">Processes all permutations of sequence content<br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-6-3-4" class="outline-5">
+<h5 id="sec-3-6-3-4"><span class="section-number-5">3.6.3.4</span> dotimes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-6-3-4">
+
+<ul>
+<li id="sec-3-6-3-4-1">Evaluate expression n times<br/>
+
+
+
+<pre class="src src-clojure">(<span class="org-builtin">dotimes</span> [i 3]
+  (<span class="org-variable-name">println</span> i))
+<span class="org-comment-delimiter">;; </span><span class="org-comment">0</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">1</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">2</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; nil</span>
+</pre>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-6-3-5" class="outline-5">
+<h5 id="sec-3-6-3-5"><span class="section-number-5">3.6.3.5</span> while &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-6-3-5">
+
+<ul>
+<li id="sec-3-6-3-5-1">Evaluate expression while condition is true<br/>
+
+
+
+<pre class="src src-clojure">(<span class="org-variable-name">while</span> (<span class="org-preprocessor">.accept</span> socket)
+  (<span class="org-builtin">handle</span> socket))
+</pre>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-6-3-6" class="outline-5">
+<h5 id="sec-3-6-3-6"><span class="section-number-5">3.6.3.6</span> Clojure's for &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-6-3-6">
+
+<ul>
+<li id="sec-3-6-3-6-1">List comprehension, NOT a for-loop<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-6-3-6-2">Generator function for sequence permutation<br/>
+
+
+
+<pre class="src src-clojure">(<span class="org-builtin">for</span> [x [0 1]
+      y [0 1]]
+  [x y])
+<span class="org-comment-delimiter">;;</span><span class="org-comment">=&gt; ([0 0] [0 1] [1 0] [1 1]) ; seq</span>
+</pre>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3-6-3-7" class="outline-5">
+<h5 id="sec-3-6-3-7"><span class="section-number-5">3.6.3.7</span> with-open &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h5>
+<div class="outline-text-5" id="text-3-6-3-7">
+
+<ul>
+<li id="sec-3-6-3-7-1">JDK7 introduces try-with-resources<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-6-3-7-2">Clojure provides <code>with-open</code> for similar purposes<br/>
+
+
+
+<pre class="src src-clojure">(<span class="org-variable-name">require</span> '[clojure.java.io <span class="org-constant">:as</span> io])
+(<span class="org-builtin">with-open</span> [f (io/writer <span class="org-string">"/tmp/new"</span>)]
+  (<span class="org-preprocessor">.write</span> f <span class="org-string">"some text"</span>))
+</pre>
+
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-7" class="outline-3">
+<h3 id="sec-3-7"><span class="section-number-3">3.7</span> HACK LIFE &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-3-7">
+
+<ul>
+<li id="sec-3-7-1">Clinton: @crnixon<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-7-2">Alan: @alandipert<br/>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> End</h2>
+<div class="outline-text-2" id="text-4">
+
+
+
+
+
+
+
+<script type="text/javascript" src="slide-assets/org-html-slideshow.js"></script>
+
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2012-07-17 18:56:16 EDT</p>
+<p class="author">Author: Alan Dipert</p>
+<p class="creator">Org version 7.8.03 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>
