@@ -19,7 +19,7 @@ body {
    margin: 18pt;
    font-size: 24pt;
    background-color: white;
-/*   background-image: url("background.jpeg");*/
+  background-image: url("retina_wood.png");
    background-size: cover;
    font-family: 'PT Sans', sans-serif;
 }
@@ -31,9 +31,7 @@ body {
   right: 20px;
 }
 
-#clojure-logo {
-  width: 300px;
-  height: 300px;
+#lisp-logo {
   margin: 0 auto;
   display: block;
 }

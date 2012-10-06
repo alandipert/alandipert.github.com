@@ -15,11 +15,6 @@ pre {
    font-family: Monaco, "Courier New", monospace;
 }
 
-#clojure-logo {
-  display: none;
-}
-
-
 #c-panel {
    background: lightgray;
    bottom: 0px;
