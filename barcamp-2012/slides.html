@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Your Own Compiler in 20 Minutes</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Your Own Compiler in 20 Minutes"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2012-10-06 03:15:09 EDT"/>
+<meta name="author" content="Alan Dipert"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="slide-assets/goog-common.css" />
+<link rel="stylesheet" type="text/css" href="slide-assets/common.css" />
+<link rel="stylesheet" type="text/css" href="slide-assets/screen.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="slide-assets/projection.css" media="projection" />
+<link rel="stylesheet" type="text/css" href="slide-assets/presenter.css" media="presenter" />
+<link rel="stylesheet" type="text/css" href="slide-assets/print.css" media="print" />
+
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Your Own Compiler in 20 Minutes</h1>
+
+
+<p>Press <strong>T</strong> to toggle slide-show mode.</p>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Your Own Compiler in 20 Minutes</a></li>
+<li><a href="#sec-2">2 Agenda</a></li>
+<li><a href="#sec-3">3 What's a compiler?</a></li>
+<li><a href="#sec-4">4 What's in a compiler?</a></li>
+<li><a href="#sec-5">5 Javascript Compiler Example</a></li>
+<li><a href="#sec-6">6 What's Lisp?</a></li>
+<li><a href="#sec-7">7 Javascript vs. Lisp</a></li>
+<li><a href="#sec-8">8 JSONScript</a></li>
+<li><a href="#sec-9">9 Compiling JSON to JSONScript</a></li>
+<li><a href="#sec-10">10 Thanks!</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Your Own Compiler in 20 Minutes &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-1">
+
+
+
+
+<div style="text-align:center;">
+</br>
+<img id="lisp-logo" src="slide-assets/lisp.png"/>
+</div>
+<p class="presenters">
+Alan Dipert</br>
+@alandipert
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Agenda &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-2">
+
+<ul>
+<li id="sec-2-1">What's in a compiler?<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-2-2">What's Lisp?<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-2-3">Lisp → Javascript compiler<br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> What's a compiler? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-3">
+
+<ul>
+<li id="sec-3-1">Compilers are functions<br/>
+<ul>
+<li id="sec-3-1-1">Language A → Language B<br/>
+<ul>
+<li id="sec-3-1-1-1">A is usually "high level"<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-1-1-2">B is usually "low level"<br/>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-3-1-2">Examples<br/>
+<ul>
+<li id="sec-3-1-2-1">Java to Java bytecode<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-3-1-2-2">C to assembly<br/>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> What's in a compiler? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-4">
+
+<ul>
+<li id="sec-4-1">Lexical Analyzer or "lexer"<br/>
+<ul>
+<li id="sec-4-1-1">Recognizes <b>tokens</b> like <code>printf</code>, <code>echo</code>, and "<code>hello world</code>"<br/>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-4-2">Parser<br/>
+<ul>
+<li id="sec-4-2-1">Recognizes patterns of tokens and builds an <b>Abstract Syntax Tree (AST)</b><br/>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3">Generator or "back end"<br/>
+<ul>
+<li id="sec-4-3-1">Walks the AST and generates appropriate code in the target language<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-2">Optionally optimizes code for size, speed, or architecture<br/>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Javascript Compiler Example &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-5">
+
+<ul>
+<li id="sec-5-1"><code>alert(1+2*3)</code><br/>
+<ol>
+<li>Lexically Analyze: <code>alert</code>, <code>(</code>, <code>1</code>, <code>+</code>, <code>2</code>, <code>*</code>, <code>3</code>, <code>)</code>
+</li>
+<li>Parse: &lt;function call&gt;(&lt;arguments&gt;&hellip;)
+<ol>
+<li><code>&lt;function: alert&gt;(arguments: 1, +, 2...)</code>
+</li>
+</ol>
+
+</li>
+<li>Generate: <code>compile(alert, compile(1), compile(+)...)</code>
+<ol>
+<li><code>PUSH 2 R1, PUSH 3 R2, * R1,R2,R3...</code>
+</li>
+</ol>
+
+</li>
+</ol>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> What's Lisp? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-6">
+
+<ul>
+<li id="sec-6-1">Programming language invented in 1958<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-6-2">Code is data<br/>
+<ul>
+<li id="sec-6-2-1">Symbols: <code>alert</code>, <code>*</code>, <code>+</code><br/>
+</li>
+</ul>
+<ul>
+<li id="sec-6-2-2">Numbers: <code>1</code>, <code>3</code><br/>
+</li>
+</ul>
+<ul>
+<li id="sec-6-2-3">List of numbers: <code>(1 2 3)</code><br/>
+</li>
+</ul>
+<ul>
+<li id="sec-6-2-4">Function call: <code>(+ 1 2 3)</code><br/>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Javascript vs. Lisp &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-7">
+
+<ul>
+<li id="sec-7-1">Javascript<br/>
+
+
+
+<pre class="src src-javascript">alert(1+2*3); <span class="org-comment-delimiter">//</span><span class="org-comment">Source code string</span>
+</pre>
+
+</li>
+</ul>
+<ul>
+<li id="sec-7-2">Lisp<br/>
+
+
+
+<pre class="src src-lisp">(alert (+ 1 (* 2 3))) <span class="org-comment-delimiter">;;</span><span class="org-comment">Source code data</span>
+</pre>
+
+<ul>
+<li id="sec-7-2-1">Precedence rules unnecessary<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-7-2-2">Compiler is passed data instead of source code strings or files<br/>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> JSONScript &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-8">
+
+<ul>
+<li id="sec-8-1">Javascript Object Notation (JSON) is a subset of Javascript and common data format<br/>
+<ul>
+<li id="sec-8-1-1">We will use JSON to represent Lisp programs<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-8-1-2">Lisp<br/>
+
+
+
+<pre class="src src-lisp">(alert (+ 1 (* 2 3)))
+</pre>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-1-3">JSONScript<br/>
+
+
+
+<pre class="src src-javascript">[<span class="org-string">'alert'</span>, [<span class="org-string">'+'</span>, 1, [<span class="org-string">'*'</span>, 2, 3]]]
+</pre>
+
+</li>
+</ul>
+<ul>
+<li id="sec-8-1-4">Note: strings are symbols, arrays are lists<br/>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> Compiling JSON to JSONScript &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-9">
+
+<ul>
+<li id="sec-9-1">Write a function that converts JSONScript to a string of Javascript<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-9-2">Pass the string to <code>eval()</code><br/>
+</li>
+</ul>
+<ul>
+<li id="sec-9-3">JSONScript<br/>
+
+
+
+<pre class="src src-javascript">[<span class="org-string">'alert'</span>, [<span class="org-string">'+'</span>, 1, [<span class="org-string">'*'</span>, 2, 3]]]
+</pre>
+
+</li>
+</ul>
+<ul>
+<li id="sec-9-4">Javascript<br/>
+
+
+
+<pre class="src src-javascript">alert(1+2*3)
+</pre>
+
+</li>
+</ul>
+<ul>
+<li id="sec-9-5">Demo: <a href="http://tiny.cc/compiler">http://tiny.cc/compiler</a><br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> Thanks! &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-10">
+
+<ul>
+<li id="sec-10-1">Alan Dipert<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-10-2">@alandipert<br/>
+</li>
+</ul>
+<ul>
+<li id="sec-10-3">Blog Post: <a href="http://bit.ly/pffaCd">http://bit.ly/pffaCd</a><br/>
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="slide-assets/org-html-slideshow.js"></script>
+
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2012-10-06 03:15:09 EDT</p>
+<p class="author">Author: Alan Dipert</p>
+<p class="creator">Org version 7.8.03 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

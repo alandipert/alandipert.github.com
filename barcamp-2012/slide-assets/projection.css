@@ -1,0 +1,120 @@
+/* Org-HTML-Slideshow projection styles.
+ *
+ * These styles will apply only to the slide-show view.
+ */
+
+/*
+ * dark blue: #3C5996
+ * light blue: #90B4FE
+ * light green: #91DC47
+ * dark green: #63B131
+ */
+
+@import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono);
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic);
+@import url(http://fonts.googleapis.com/css?family=Bitter:400,700);
+
+
+body {
+   margin: 18pt;
+   font-size: 24pt;
+   background-color: white;
+/*   background-image: url("background.jpeg");*/
+   background-size: cover;
+   font-family: 'PT Sans', sans-serif;
+}
+
+.presenters {
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+}
+
+#clojure-logo {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Use all headings as slide titles, regardless of level. */
+h1,h2,h3,h4,h5,h6,h7,h8 {
+  font-family: 'Bitter', serif;
+  font-size: 48pt;
+  margin: 18pt;
+  text-align: center;
+}
+
+h1 code, h2 code, h3 code, h4 code, h5 code, h6 code, h7 code, h8 code {
+  background-color: inherit;
+}
+
+ul {
+  padding-left: 0;
+}
+
+li {
+  margin: 12pt;
+  list-style: none;
+}
+
+li li {
+  margin-left: 2em;
+  list-style: disc;
+}
+
+/* Center embedded images. */
+p.image {
+  text-align: center;
+}
+
+/* Hide Org-Mode tags in slide-show view. */
+span.tag {
+  display: none;
+}
+
+/* Hide Org-Mode section numbers in slide-show view. */
+span.section-number-1,span.section-number-2,span.section-number-3,span.section-number-4,span.section-number-5,span.section-number-6,span.section-number-7,span.section-number-8 {
+  display: none;
+}
+
+.blue_background {
+  background: blue;
+  color: white;
+}
+
+.colorize-highlight { 
+  color: blue;
+}
+
+code {
+  background-color: #eee;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  color: black;
+  font-family: 'Ubuntu Mono', sans-serif;
+  font-size: .9em;
+  padding: 2px 4px;
+}
+
+pre code {
+  display: block;
+  overflow: auto;
+}
+
+pre {
+  background-color: #eee;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 1px 1px 1px #999;
+  box-shadow: 1px 1px 1px #999;
+  color: black;
+  font-family: 'Ubuntu Mono', sans-serif;
+  margin-bottom: 40px;
+  padding: 20px;
+  line-height: initial;
+  font-size: 22px;
+}
