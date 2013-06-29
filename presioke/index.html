@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head><title>Presioke</title></head>
+  <body>
+    <do>
+      <defn>
+        <flickr></flickr>
+        Invokes the flickr API method with params and calls the success
+  function.
+        <div type="GET"
+             url="http://api.flickr.com/services/rest/"
+             data="(merge params {\"method\" method, \"format\" \"json\"})"
+             jsonpCallback="jsonFlickrApi"
+             dataType="jsonp"
+             success="(comp success js->clj)">
+          <div></div>
+          <.ajax><div></div></.ajax>
+        </div>
+      </defn>
+      <defn>
+        <image-url></image-url>
+        Converts a flickr image response map into an image URL.
+        <interpolating>
+          http://farm#{farm}.staticflickr.com/#{server}/#{id}_#{secret}.jpg
+        </interpolating>
+      </defn>
+      <def>
+        <images></images>
+        Stem cell. Vector of image URLs. Contains an initial default image.
+        <cell><quote></quote></cell>
+      </def>
+      <def>
+        <cursor></cursor>
+        Input cell. Index of the current image URL.
+        <cell></cell>
+      </def>
+      <def>
+        <div></div>
+        Formula cell. True when images remain. Accounts for the default image.
+        <cell>
+          <div>
+            <dec><count><images></images></count></dec>
+            <cursor></cursor>
+          </div>
+        </cell>
+      </def>
+      <def>
+        <current-image></current-image>
+        Formula cell. URL of the currently selected image.
+        <cell><get><images></images> <cursor></cursor></get></cell>
+      </def>
+      <.on>
+        <div>body</div>
+        keypress click
+        <div><div><cursor></cursor> <inc></inc></div></div>
+      </.on>
+      <flickr>
+        flickr.interestingness.getList
+        <div>
+          <div>
+            <images></images>
+            <into></into>
+            <map>
+              <image-url></image-url>
+              <get-in><div></div></get-in>
+            </map>
+          </div>
+        </div>
+      </flickr>
+    </do>
+    <reactive-attributes>
+      <img do="[(d/attr! :src current-image)]">
+      <br>
+      <span do="[(d/text! (if ready? (str (inc cursor) \"/\" (count images)) \"Loading...\"))]">
+
+      </span>
+      <br>
+      <span do="[(d/text! (if ready? \"Press a key or click the mouse for a new image.\"))]">
+
+      </span>
+    </reactive-attributes>
+    <script type="text/javascript">
+      (function(node) { while (node.hasChildNodes()) node.removeChild(node.lastChild) })(document.body);
+    </script>
+    <script type="text/javascript">
+      var CLOSURE_NO_DEPS = true;
+    </script>
+    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript">
+      tailrecursion.presioke.index.hoploninit();
+    </script>
+  </body>
+</html>
