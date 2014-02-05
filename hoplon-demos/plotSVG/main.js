@@ -1425,8 +1425,8 @@ var Tb = function bc(b, c) {
       this.kc = h;
       this.o = 0;
       this.i = 393217;
-    }, fa.Wb = !0, fa.Ub = "cljs.core/t8695", fa.gc = function(b) {
-      return ob(b, "cljs.core/t8695");
+    }, fa.Wb = !0, fa.Ub = "cljs.core/t8693", fa.gc = function(b) {
+      return ob(b, "cljs.core/t8693");
     }, fa.prototype.call = function() {
       function b(d, h) {
         d = this;
@@ -8193,9 +8193,9 @@ function Zh(a, b) {
     return function(d) {
       return Z(function() {
         return function(a, b) {
-          return b < a;
+          return a < b;
         };
-      }(a, b, c)).call(null, c, d);
+      }(a, b, c)).call(null, d, c);
     };
   }(c, d, e), h = function(a, b, c, d) {
     return function(e) {
@@ -8728,7 +8728,7 @@ function Ai() {
       return function() {
         return tf(vi, Wh());
       };
-    }(a, b, c, d, e, f, h, k, l, n, q)), e = Kh.b ? Kh.b(Yf, "https://github.com/tailrecursion/hoplon-demos/", "Hoplon Demos") : Kh.call(null, Yf, "https://github.com/tailrecursion/hoplon-demos/", "Hoplon Demos"), e = Qh.b ? Qh.b("Part of ", e, ", check it out on GitHub!") : Qh.call(null, "Part of ", e, ", check it out on GitHub!");
+    }(a, b, c, d, e, f, h, k, l, n, q)), e = Kh.b ? Kh.b(Yf, "https://github.com/tailrecursion/hoplon-demos/blob/master/plotSVG/src/index.cljs.hl", "Source Code") : Kh.call(null, Yf, "https://github.com/tailrecursion/hoplon-demos/blob/master/plotSVG/src/index.cljs.hl", "Source Code");
     return Mh.Qa ? Mh.Qa(Ag, new ia(null, 5, [dg, "400px", cg, "0 auto", vg, "center", fg, "20px", Lg, "sans-serif"], null), a, b, c, n, q, d, e) : Mh.call(null, Ag, new ia(null, 5, [dg, "400px", cg, "0 auto", vg, "center", fg, "20px", Lg, "sans-serif"], null), a, b, c, n, q, d, e);
   }()], null));
 }
