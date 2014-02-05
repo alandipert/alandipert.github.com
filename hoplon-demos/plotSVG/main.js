@@ -8252,7 +8252,7 @@ function Zh(a, b) {
     return b;
   }();
 }
-var ai = $h("svg"), bi = $h("g"), ci = $h("rect"), di = $h("circle"), ei = $h("polyline"), fi = $h("polygon"), gi = $h("title");
+var ai = $h("svg"), bi = $h("g"), ci = $h("rect"), di = $h("circle"), ei = $h("polyline"), fi = $h("polygon"), gi = $h("svg:title");
 function hi(a, b, c, d, e, f, h, k) {
   this.width = a;
   this.height = b;
