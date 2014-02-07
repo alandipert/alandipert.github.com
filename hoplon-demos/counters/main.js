@@ -8061,7 +8061,7 @@ function jh() {
     return a;
   }();
   return eh(new W(null, 3, 5, X, [ih.e(M([Yf, 10], 0)), function() {
-    var a = Xg.b ? Xg.b(Pf, "https://github.com/tailrecursion/hoplon-demos/blob/master/counters/src/index.html.hl", "Source code") : Xg.call(null, Pf, "https://github.com/tailrecursion/hoplon-demos/blob/master/counters/src/index.html.hl", "Source code");
+    var a = Xg.b ? Xg.b(Pf, "https://github.com/tailrecursion/hoplon-demos/blob/master/counters/src/index.cljs.hl", "Source code") : Xg.call(null, Pf, "https://github.com/tailrecursion/hoplon-demos/blob/master/counters/src/index.cljs.hl", "Source code");
     return bh.c ? bh.c(a) : bh.call(null, a);
   }(), function() {
     var a = Xg.b ? Xg.b(Pf, "https://github.com/swannodette/om/tree/master/examples/counters", "the Om demo of the same name.") : Xg.call(null, Pf, "https://github.com/swannodette/om/tree/master/examples/counters", "the Om demo of the same name.");
